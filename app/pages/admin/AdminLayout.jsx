@@ -1,12 +1,24 @@
 import { Outlet } from "@remix-run/react";
 import { Form, NavLink } from "@remix-run/react";
-import { IconBook2, IconBrandBlogger, IconBrandParsinta, IconBrandYoutube, IconChevronLeft, IconFileText, IconHome, IconLogout2, IconMail, IconMessageChatbot, IconMessageQuestion, IconShoppingBag, IconUsers } from "@tabler/icons-react";
+import { 
+	IconChevronLeft, 
+	IconHome, 
+	IconLogout2, 
+	IconBuilding, 
+	IconUsers, 
+	IconTrash, 
+	IconShield 
+} from "@tabler/icons-react";
 import clsx from "clsx";
 import { useState } from "react";
 import { routesPath } from "../../utiils/Routespath";
 
 const sidebarItems = [
-	{ label: 'Home', icon: <IconHome size={18} />, type: 'link' , to: routesPath.admin },
+	{ label: 'Dashboard', icon: <IconHome size={18} />, type: 'link', to: routesPath.admin },
+	{ label: 'Organisations', icon: <IconBuilding size={18} />, type: 'link', to: routesPath.adminOrganisations },
+	{ label: 'Volunteers', icon: <IconUsers size={18} />, type: 'link', to: routesPath.adminVolunteers },
+	{ label: 'Roles', icon: <IconShield size={18} />, type: 'link', to: routesPath.adminRoles },
+	{ label: 'Recycle Bin', icon: <IconTrash size={18} />, type: 'link', to: routesPath.adminRecycleBin },
 ]
 
 export default function AdminLayout() {
@@ -27,7 +39,7 @@ export default function AdminLayout() {
 					<div className="flex items-center justify-center px-4 py-4 border-b relative">
 						<img src="/images/logo.avif" alt="Logo" className="max-h-14" />
 						{/* <span className={`font-bold text-lg tracking-wide  ${!sidebarOpen ? 'opacity-0 w-0 h-[28px]' : 'opacity-100 w-auto'}`}>DASHBOARD</span> */}
-						<button className="absolute -right-5 top-1/2 -translate-y-1/2 bg-white border shadow w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition z-30" onClick={() => setSidebarOpen(prev => !prev)}>
+						<button className="absolute -right-5 top-1/2 -translate-y-1/2 bg-white border shadow w-8 h-8 flex items-center justify-center rounded-full hover:bg-red-50 transition z-30" onClick={() => setSidebarOpen(prev => !prev)}>
 							{sidebarOpen ? <>
 								<IconChevronLeft size={18} />
 							</> : <>
@@ -47,11 +59,11 @@ export default function AdminLayout() {
 									<div>
 										<button
 											onClick={() => setOpenDropdown(openDropdown === `${item.label}-${index}` ? null : `${item.label}-${index}`)}
-											className={`flex items-center w-full px-4 py-2 rounded-lg transition-colors ${openDropdown === `${item.label}-${index}` && sidebarOpen ? 'text-blue-700 font-bold bg-blue-50' : 'text-gray-700 hover:bg-gray-100'} ${!sidebarOpen ? 'justify-center px-0' : ''}`}
+											className={`flex items-center w-full px-4 py-2 rounded-lg transition-colors ${openDropdown === `${item.label}-${index}` && sidebarOpen ? 'text-primary font-bold bg-red-50' : 'text-gray-700 hover:bg-red-50'} ${!sidebarOpen ? 'justify-center px-0' : ''}`}
 										>
 											<span className={`${!sidebarOpen ? '' : 'mr-3'}`}>{item.icon}</span>
 											{sidebarOpen && (
-												<div className={`relative text-sm font-semibold !duration-0 ${!sidebarOpen ? 'opacity-0 w-0 absolute !text-white' : 'opacity-100 w-auto'}`}>{item.label}</div>
+												<div className={`relative text-sm font-normal !duration-0 ${!sidebarOpen ? 'opacity-0 w-0 absolute !text-white' : 'opacity-100 w-auto'}`}>{item.label}</div>
 											)}
 											{sidebarOpen && (
 												<span className={`ml-auto text-xs transition-transform ${openDropdown === `${item.label}-${index}` ? 'rotate-90' : ''}`}><IconChevronLeft size={18} className="rotate-180" /></span>
@@ -67,8 +79,8 @@ export default function AdminLayout() {
 														to={sub.to} 
 														className={({ isActive }) => 
 															clsx(
-																'py-1 text-xs hover:text-blue-700 hover:font-semibold',
-																isActive ? 'text-blue-700 font-semibold' : 'text-gray-700'
+																'py-1 text-xs hover:text-primary hover:font-semibold',
+																isActive ? 'text-primary font-semibold' : 'text-gray-700'
 															)
 														}
 														// className={`${({ isActive }) => isActive ? 'text-blue-700 font-semibold' : 'text-gray-700'}  py-1 text-[15px] hover:text-blue-700 hover:font-semibold`}
@@ -89,13 +101,13 @@ export default function AdminLayout() {
 											clsx(
 												'flex items-center px-4 py-2 rounded-lg transition-colors',
 												!sidebarOpen && 'justify-center px-0',
-												isActive ? 'text-blue-700 font-semibold bg-blue-50' : 'text-gray-700 hover:bg-gray-100'
+												isActive ? 'text-primary font-semibold bg-red-50' : 'text-gray-700 hover:bg-red-50'
 											)
 										}
 									>
 										<span className={`${!sidebarOpen ? '' : 'mr-3'}`}>{item.icon}</span>
 										{sidebarOpen && (
-											<div className={`relative text-sm font-semibold !duration-0 ${!sidebarOpen ? 'opacity-0 w-0 absolute !text-white' : 'opacity-100 w-auto'}`}>{item.label}</div>
+											<div className={`relative text-sm font-normal !duration-0 ${!sidebarOpen ? 'opacity-0 w-0 absolute !text-white' : 'opacity-100 w-auto'}`}>{item.label}</div>
 										)}
 										{/* <span className={`transition-all text-sm font-semibold duration-200 ${!sidebarOpen ? 'opacity-0 w-0 absolute' : 'opacity-100 w-auto'}`}>{item.label}</span> */}
 									</NavLink>
@@ -111,7 +123,7 @@ export default function AdminLayout() {
 						<div className="flex flex-col gap-2">
 						<Form method="post" action="/logout" className="w-full">
 							<button
-								className={`flex w-full items-center px-4 py-2 rounded-lg transition-colors ${!sidebarOpen ? 'justify-center px-0' : ''} text-gray-700 hover:bg-gray-100`}
+								className={`flex w-full items-center px-4 py-2 rounded-lg transition-colors ${!sidebarOpen ? 'justify-center px-0' : ''} text-gray-700 hover:bg-red-50`}
 							>
 								<span className={`${!sidebarOpen ? '' : 'mr-2'}`}>
 									<IconLogout2 size={18} className="text-red-500"  />
