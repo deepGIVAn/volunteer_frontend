@@ -57,5 +57,14 @@ module.exports = {
         node: true,
       },
     },
+
+    // Remix route files (contain loaders/actions that run on server)
+    {
+      files: ["app/routes/**/*.{js,jsx,ts,tsx}", "app/entry.server.{js,jsx,ts,tsx}"],
+      env: {
+        node: true,
+        browser: true,
+      },
+    },
   ],
 };

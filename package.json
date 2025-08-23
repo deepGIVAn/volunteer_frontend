@@ -13,6 +13,9 @@
     "@remix-run/node": "*",
     "@remix-run/react": "*",
     "@remix-run/serve": "*",
+    "@tabler/icons-react": "^3.34.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
     "isbot": "^4.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
