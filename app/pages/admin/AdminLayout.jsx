@@ -11,14 +11,14 @@ import {
 } from "@tabler/icons-react";
 import clsx from "clsx";
 import { useState } from "react";
-import { routesPath } from "../../utiils/routesPath";
+import { RoutesPath } from "../../utiils/RoutesPath";
 
 const sidebarItems = [
-	{ label: 'Dashboard', icon: <IconHome size={18} />, type: 'link', to: routesPath.admin },
-	{ label: 'Organisations', icon: <IconBuilding size={18} />, type: 'link', to: routesPath.adminOrganisations },
-	{ label: 'Volunteers', icon: <IconUsers size={18} />, type: 'link', to: routesPath.adminVolunteers },
-	{ label: 'Roles', icon: <IconShield size={18} />, type: 'link', to: routesPath.adminRoles },
-	{ label: 'Recycle Bin', icon: <IconTrash size={18} />, type: 'link', to: routesPath.adminRecycleBin },
+	{ label: 'Dashboard', icon: <IconHome size={18} />, type: 'link', to: RoutesPath.admin },
+	{ label: 'Organisations', icon: <IconBuilding size={18} />, type: 'link', to: RoutesPath.adminOrganisations },
+	{ label: 'Volunteers', icon: <IconUsers size={18} />, type: 'link', to: RoutesPath.adminVolunteers },
+	{ label: 'Roles', icon: <IconShield size={18} />, type: 'link', to: RoutesPath.adminRoles },
+	{ label: 'Recycle Bin', icon: <IconTrash size={18} />, type: 'link', to: RoutesPath.adminRecycleBin },
 ]
 
 export default function AdminLayout() {

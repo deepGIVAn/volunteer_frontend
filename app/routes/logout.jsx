@@ -1,10 +1,10 @@
 import { redirect } from "@remix-run/react";
 import { destroySession, getSession } from "../utiils/sessions.server";
-import { routesPath } from "../utiils/routesPath";
+import { RoutesPath } from "../utiils/RoutesPath";
 
 export async function action({ request }) {
 	const session = await getSession(request.headers.get("Cookie"));
-	return redirect(routesPath.login, {
+	return redirect(RoutesPath.login, {
 		headers: {
 			"Set-Cookie": await destroySession(session),
 		},
@@ -12,7 +12,7 @@ export async function action({ request }) {
 }
 
 export async function loader() {
-	return redirect(routesPath.login);
+	return redirect(RoutesPath.login);
 }
 
 export default function Logout() {

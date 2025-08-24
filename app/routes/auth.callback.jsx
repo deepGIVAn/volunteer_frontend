@@ -1,6 +1,6 @@
 import { json, redirect } from "@remix-run/node";
 import { getSession, commitSession } from "../utiils/sessions.server";
-import { routesPath } from "../utiils/routesPath";
+import { RoutesPath } from "../utiils/RoutesPath";
 
 export async function action({ request }) {
 	if (request.method !== "POST") {
@@ -24,7 +24,7 @@ export async function action({ request }) {
 		}
 
 		// Return success response with session cookie
-		return redirect(routesPath.admin, {
+		return redirect(RoutesPath.admin, {
 			headers: {
 				"Set-Cookie": await commitSession(session),
 			},
@@ -55,11 +55,11 @@ export async function loader({ request }) {
 	const session = await getSession(request.headers.get("Cookie"));
 
 	if (session.has("user")) {
-		return redirect(routesPath.admin);
+		return redirect(RoutesPath.admin);
 	}
 
 	// If no session, redirect to login
-	return redirect(routesPath.login);
+	return redirect(RoutesPath.login);
 }
 
 export default function AuthCallback() {

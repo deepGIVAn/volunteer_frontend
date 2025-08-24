@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "@remix-run/react";
 import { IconEye, IconEyeOff, IconAlertCircle, IconCheck } from "@tabler/icons-react";
-import { routesPath } from "../../utiils/routesPath";
+import { RoutesPath } from "../../utiils/RoutesPath";
 
 export default function LoginPage() {
 	const BACKEND_URL = import.meta.env.VITE_API_URL;
@@ -68,12 +68,12 @@ export default function LoginPage() {
 					if (callbackResponse.status === 302 || callbackResponse.type === 'opaqueredirect') {
 						// Callback successful and redirected, navigate to admin
 						setTimeout(() => {
-							navigate(routesPath.admin);
+							navigate(RoutesPath.admin);
 						}, 1500);
 					} else if (callbackResponse.ok) {
 						// Callback successful (if it returns JSON instead of redirect)
 						setTimeout(() => {
-							navigate(routesPath.admin);
+							navigate(RoutesPath.admin);
 						}, 1500);
 					} else {
 						// Callback failed
