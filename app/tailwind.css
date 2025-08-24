@@ -178,9 +178,62 @@
 	src : url("/fonts/dinneuzeitgrotesklt.woff2") format("woff2");
 }
 
+/* Inter Font */
+@font-face {
+	font-family: "Inter";
+	src: url("/fonts/Inter-Regular.ttf") format("truetype");
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Inter";
+	src: url("/fonts/Inter-Medium.ttf") format("truetype");
+	font-weight: 500;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Inter";
+	src: url("/fonts/Inter-SemiBold.ttf") format("truetype");
+	font-weight: 600;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Inter";
+	src: url("/fonts/Inter-Bold.ttf") format("truetype");
+	font-weight: 700;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Inter";
+	src: url("/fonts/Inter-Light.ttf") format("truetype");
+	font-weight: 300;
+	font-style: normal;
+}
+
 body {
 	font-family: "Rubik", sans-serif;
 	background-color: var(--white-color);
 	font-weight: 400;
 	color: var(--black-color);
+}
+
+/* Header navigation styles */
+.headernav-button {
+	@apply px-4 py-2 text-gray-700 transition-all duration-200 font-medium bg-gray-200;
+	font-family: "DinneuzeitGrotesk", sans-serif;
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.headernav-button:hover {
+	@apply bg-black text-white;
+}
+
+/* Mobile menu animation */
+.menu-open {
+	@apply translate-x-0;
 }
