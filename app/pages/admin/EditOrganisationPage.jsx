@@ -295,14 +295,14 @@ export default function EditOrganisationPage() {
                     name={name}
                     onChange={handleFileChange}
                     className="hidden"
-                    accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                    accept="image/*"
                 />
                 <span className="text-sm text-gray-500 flex-1">
                     {formData[name] ? formData[name].name : 'No file chosen'}
                 </span>
             </div>
             <p className="text-xs text-gray-500">
-                Supported formats: PDF, DOC, DOCX, JPG, JPEG, PNG (Max 10MB)
+                Supported formats: JPG, JPEG, PNG, AVIF (Max 25MB)
             </p>
         </div>
     );
@@ -328,27 +328,12 @@ export default function EditOrganisationPage() {
         </div>
     );
 
-    if (isLoading) {
-        return (
-            <div className="">
-                <div className="animate-pulse">
-                    <div className="h-8 bg-gray-200 rounded w-1/4 mb-4"></div>
-                    <div className="space-y-4">
-                        <div className="h-4 bg-gray-200 rounded w-full"></div>
-                        <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                        <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
     return (
         <div className="">
             {/* Header */}
             <div className="mb-8">
-                <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center !space-x-0">
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
                         <Link 
                             to="/admin/organisations" 
                             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
@@ -375,25 +360,22 @@ export default function EditOrganisationPage() {
                     <h2 className="text-lg font-medium text-gray-900 mb-4">Status</h2>
                     <div className="space-y-2">
                         <label htmlFor="status" className="block text-sm font-medium text-gray-700">Organisation Status</label>
-                        <select
-                            id="status"
-                            name="status"
-                            value={formData.status}
-                            onChange={handleInputChange}
-                            className="w-full px-4 py-3 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C7102F] focus:border-transparent appearance-none text-sm font-medium"
-                            style={{
-                                backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e")`,
-                                backgroundPosition: 'right 0.75rem center',
-                                backgroundRepeat: 'no-repeat',
-                                backgroundSize: '1.5em 1.5em'
-                            }}
-                        >
-                            {statusOptions.map((option) => (
-                                <option key={option.value} value={option.value} className="bg-gray-900 text-white">
-                                    {option.label}
-                                </option>
-                            ))}
-                        </select>
+                        <div className='relative'>
+                            <select
+                                id="status"
+                                name="status"
+                                value={formData.status}
+                                onChange={handleInputChange}
+                                className="w-full px-4 py-3 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C7102F] focus:border-transparent appearance-none text-sm font-medium"
+                            >
+                                <option value="" className="">Select status</option>
+                                <option value={1} className="">Active</option>
+                                <option value={2} className="">Inactive</option>
+                                <option value={3} className="">Awaiting Approval</option>
+                                <option value={4} className="">Draft</option>
+                            </select>
+                            {/* You can add a chevron icon here if you want, similar to AddOrganisationPage */}
+                        </div>
                     </div>
                 </div>
 

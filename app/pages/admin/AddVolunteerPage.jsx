@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from '@remix-run/react';
+import { Link, useNavigate } from '@remix-run/react';
 import { 
     IconArrowLeft, 
     IconUser, 
@@ -14,6 +14,7 @@ import {
 } from '@tabler/icons-react';
 
 export default function AddVolunteerPage() {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         title: '',
         first_name: '',
@@ -139,17 +140,13 @@ export default function AddVolunteerPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-        
         try {
             // TODO: Replace with actual API call
             console.log('Submitting volunteer:', formData);
-            
             // Simulate API call
             await new Promise(resolve => setTimeout(resolve, 1000));
-            
             alert('Volunteer added successfully!');
-            // TODO: Redirect to volunteers list
-            
+            navigate('/admin/organisations'); // Redirect to all organisations
         } catch (error) {
             console.error('Error adding volunteer:', error);
             alert('Error adding volunteer. Please try again.');
