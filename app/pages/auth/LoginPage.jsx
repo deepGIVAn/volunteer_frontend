@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "@remix-run/react";
 import { IconEye, IconEyeOff, IconAlertCircle, IconCheck } from "@tabler/icons-react";
-import { routesPath } from "../../utiils/Routespath";
+import { routesPath } from "../../utiils/routesPath";
 
 export default function LoginPage() {
 	const BACKEND_URL = import.meta.env.VITE_API_URL;

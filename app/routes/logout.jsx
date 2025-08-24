@@ -1,6 +1,6 @@
 import { redirect } from "@remix-run/react";
 import { destroySession, getSession } from "../utiils/sessions.server";
-import { routesPath } from "../utiils/Routespath";
+import { routesPath } from "../utiils/routesPath";
 
 export async function action({ request }) {
 	const session = await getSession(request.headers.get("Cookie"));
