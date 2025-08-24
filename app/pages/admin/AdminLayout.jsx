@@ -11,7 +11,7 @@ import {
 } from "@tabler/icons-react";
 import clsx from "clsx";
 import { useState } from "react";
-import { routesPath } from "../../utiils/Routespath";
+import { routesPath } from "../../utiils/routespath.js";
 
 const sidebarItems = [
 	{ label: 'Dashboard', icon: <IconHome size={18} />, type: 'link', to: routesPath.admin },
