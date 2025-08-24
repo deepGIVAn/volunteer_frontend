@@ -1,7 +1,7 @@
 import { redirect, useLoaderData } from "@remix-run/react";
 import AdminLayout from "../pages/admin/AdminLayout";
 import { getSession } from "../utiils/sessions.server";
-import { RoutesPath } from "../utiils/RoutesPath";
+import { RoutesPath } from "../utiils/Path";
 
 export async function loader({ request }) {
 	const session = await getSession(request.headers.get("Cookie"));

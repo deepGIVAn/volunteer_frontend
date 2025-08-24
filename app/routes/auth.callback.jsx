@@ -1,6 +1,6 @@
 import { json, redirect } from "@remix-run/node";
 import { getSession, commitSession } from "../utiils/sessions.server";
-import { RoutesPath } from "../utiils/RoutesPath";
+import { RoutesPath } from "../utiils/Path";
 
 export async function action({ request }) {
 	if (request.method !== "POST") {
