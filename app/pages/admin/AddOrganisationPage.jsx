@@ -185,14 +185,14 @@ export default function AddOrganisationPage() {
                     name={name}
                     onChange={handleFileChange}
                     className="hidden"
-                    accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                    accept="image/*"
                 />
                 <span className="text-sm text-gray-500 flex-1">
                     {formData[name] ? formData[name].name : 'No file chosen'}
                 </span>
             </div>
             <p className="text-xs text-gray-500">
-                Supported formats: PDF, DOC, DOCX, JPG, JPEG, PNG (Max 10MB)
+                Supported formats: JPG, JPEG, PNG, AVIF (Max 25MB)
             </p>
         </div>
     );
@@ -252,7 +252,7 @@ export default function AddOrganisationPage() {
         <div className="">
             {/* Header */}
             <div className="mb-8">
-                <div className="flex items-center space-x-4 mb-4">
+                <div className="flex items-center space-x-2">
                     <Link 
                         to="/admin/organisations" 
                         className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
@@ -275,7 +275,7 @@ export default function AddOrganisationPage() {
                         <FormField
                             label="Title"
                             name="title"
-                            placeholder="Mr., Ms., Dr., etc."
+                            placeholder="Enter Title"
                             icon={IconUser}
                         />
                         <FormField
@@ -297,15 +297,6 @@ export default function AddOrganisationPage() {
                             type="url"
                             placeholder="https://example.com"
                             icon={IconWorld}
-                        />
-                    </div>
-                    <div className="mt-4">
-                        <FormField
-                            label="Company Aim"
-                            name="company_aim"
-                            type="textarea"
-                            placeholder="Describe the organisation's mission and goals"
-                            rows={4}
                         />
                     </div>
                 </div>
@@ -463,8 +454,8 @@ export default function AddOrganisationPage() {
                                 >
                                     <option value="" className="">Select status</option>
                                     <option value={1} className="">Active</option>
-                                    <option value={2} className="">Pending</option>
-                                    <option value={3} className="">Inactive</option>
+                                    <option value={2} className="">Inactive</option>
+                                    <option value={3} className="">Awaiting Approval</option>
                                     <option value={4} className="">Draft</option>
                                 </select>
                                 <IconChevronDown size={16} className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-900 pointer-events-none" />

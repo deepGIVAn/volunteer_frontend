@@ -106,7 +106,7 @@ export default function AddVolunteerPage() {
     const activitiesOptions = [
         { seq: 1, name: 'Administrative Tasks' },
         { seq: 2, name: 'Direct Client Support' },
-        { seq: 3, name: 'Event Organization' },
+        { seq: 3, name: 'Event Organisation' },
         { seq: 4, name: 'Teaching/Training' },
         { seq: 5, name: 'Fundraising' },
         { seq: 6, name: 'Research' },

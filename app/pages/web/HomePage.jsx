@@ -51,19 +51,19 @@ export default function HomePage() {
 
     const testimonials = [
         {
-            organization: "Social Socks",
+            organisation: "Social Socks",
             content: "Thank you all so much for connecting us with such beautiful people, who simply want to help make a difference. We would certainly not be able to do our work in the local community if it wasn't for them."
         },
         {
-            organization: "MASH Trust",
+            organisation: "MASH Trust",
             content: "Thank you for this beautiful and heart warming newsletter. Just love your thinking of inclusion ...something I am passionate about. Great read."
         },
         {
-            organization: "Te Manawa",
+            organisation: "Te Manawa",
             content: "Just want to say a huge thank you, thank you for arranging the 3 volunteers for me on the Monday...at the very last minute too. You and your team are Awesome"
         },
         {
-            organization: "Blind and Low Vision",
+            organisation: "Blind and Low Vision",
             content: "Thank you so much for this connection with her. She sounds to have wonderful qualities. We appreciate the wonderful work you do."
         }
     ];
@@ -194,10 +194,10 @@ export default function HomePage() {
                                     <span className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-600 to-transparent opacity-20 transform -translate-x-full group-hover:translate-x-full transition-transform duration-500"></span>
                                 </a>
                                 <a 
-                                    href="/organizations" 
+                                    href="/organisations" 
                                     className="border border-[#323232] text-[#323232] hover:bg-[#323232] hover:text-white px-6 py-3 transition-all duration-300 rounded-md transform hover:scale-105 hover:shadow-lg relative overflow-hidden group"
                                 >
-                                    <span className="relative z-10">For Organizations</span>
+                                    <span className="relative z-10">For Organisations</span>
                                     <span className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-600 to-transparent opacity-20 transform -translate-x-full group-hover:translate-x-full transition-transform duration-500"></span>
                                 </a>
                                 <a 
@@ -292,7 +292,7 @@ export default function HomePage() {
                                 <div className="relative h-64 overflow-hidden rounded-t-2xl">
                                     <img 
                                         src="/images/service2.avif" 
-                                        alt="Support Organizations" 
+                                        alt="Support Organisations" 
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -300,7 +300,7 @@ export default function HomePage() {
                                 <div className="relative">
                                     <div className="bg-gradient-to-r from-[#f8d568] to-[#f0c344] py-4 px-6 text-center relative overflow-hidden">
                                         <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
-                                        <h3 className="text-xl font-semibold text-[#333] relative z-10">Support Organizations</h3>
+                                        <h3 className="text-xl font-semibold text-[#333] relative z-10">Support Organisations</h3>
                                     </div>
                                     <div className="bg-white p-6 text-gray-700 relative">
                                         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#C7102F] to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
@@ -372,7 +372,7 @@ export default function HomePage() {
                                 >
                                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#ff6b6b] to-[#ffa726] rounded-t-2xl"></div>
                                     <div className="absolute -top-2 -right-2 w-8 h-8 bg-[#ff6b6b] rounded-full opacity-20 animate-ping"></div>
-                                    <h3 className="text-[#ff6b6b] font-medium mb-4 relative z-10">{testimonial.organization}</h3>
+                                    <h3 className="text-[#ff6b6b] font-medium mb-4 relative z-10">{testimonial.organisation}</h3>
                                     <p className="text-sm italic mb-10 leading-relaxed relative z-10">
                                         {testimonial.content}
                                     </p>

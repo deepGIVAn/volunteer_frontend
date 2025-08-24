@@ -32,7 +32,7 @@ export default function Footer() {
         { name: 'Home', href: '/' },
         { name: 'About Us', href: '/about' },
         { name: 'Volunteer Opportunities', href: '/volunteers' },
-        { name: 'For Organizations', href: '/organizations' },
+        { name: 'For Organisations', href: '/organisations' },
         { name: 'Contact Us', href: '/contact' }
     ];
 

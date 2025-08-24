@@ -112,7 +112,7 @@ export default function EditVolunteerPage() {
     const activitiesOptions = [
         { seq: 1, name: 'Administrative Tasks' },
         { seq: 2, name: 'Direct Client Support' },
-        { seq: 3, name: 'Event Organization' },
+        { seq: 3, name: 'Event Organisation' },
         { seq: 4, name: 'Teaching/Training' },
         { seq: 5, name: 'Fundraising' },
         { seq: 6, name: 'Research' },
@@ -386,7 +386,7 @@ export default function EditVolunteerPage() {
     }
 
     return (
-        <div className="mx-auto p-6">
+        <div className="">
             {/* Header */}
             <div className="mb-8">
                 <div className="flex items-center justify-between mb-4">

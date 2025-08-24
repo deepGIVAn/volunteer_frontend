@@ -247,7 +247,7 @@ export default function AdminOrganisationsPage() {
             ) : (
                 <>
                     {/* Statistics */}
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
                         <div className="bg-white p-4 rounded-lg border border-gray-200">
                             <div className="flex items-center justify-between">
                                 <div>
@@ -291,18 +291,18 @@ export default function AdminOrganisationsPage() {
                     </div>
 
                     {/* Filters */}
-                    <div className="bg-white rounded-lg border border-gray-200 p-4 mb-6">
+                    <div className="bg-white rounded-lg border border-gray-200 p-4 mb-4">
                         <div className="flex flex-col sm:flex-row gap-4">
                             {/* Search */}
                             <div className="flex-1">
                                 <div className="relative">
-                                    <IconSearch size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                                    <IconSearch size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                                     <input
                                         type="text"
                                         placeholder="Search organisations, contacts, or emails..."
                                         value={searchTerm}
                                         onChange={(e) => setSearchTerm(e.target.value)}
-                                        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C7102F] focus:border-transparent"
+                                        className="w-full pl-10 pr-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C7102F] focus:border-transparent"
                                     />
                                 </div>
                             </div>
@@ -310,19 +310,19 @@ export default function AdminOrganisationsPage() {
                             {/* Status Filter */}
                             <div className="sm:w-48">
                                 <div className="relative">
-                                    <IconFilter size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                                    <IconFilter size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                                     <select
                                         value={statusFilter}
                                         onChange={(e) => setStatusFilter(e.target.value)}
-                                        className="w-full pl-10 pr-8 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C7102F] focus:border-transparent appearance-none"
+                                        className="w-full pl-10 pr-8 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C7102F] focus:border-transparent appearance-none"
                                     >
                                         <option value="">All Status</option>
                                         <option value="1">Active</option>
-                                        <option value="2">Pending</option>
-                                        <option value="3">Inactive</option>
+                                        <option value="2">Inactive</option>
+                                        <option value="3">Awaiting Approval</option>
                                         <option value="4">Draft</option>
                                     </select>
-                                    <IconChevronDown size={16} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" />
+                                    <IconChevronDown size={14} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" />
                                 </div>
                             </div>
 
@@ -331,11 +331,11 @@ export default function AdminOrganisationsPage() {
                                 <button
                                     onClick={handleExportToExcel}
                                     disabled={exportLoading || filteredOrganisations.length === 0}
-                                    className="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium shadow-sm"
+                                    className="w-full sm:w-auto inline-flex items-center justify-center px-3 py-1.5 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium shadow-sm"
                                 >
                                     {exportLoading ? (
                                         <>
-                                            <svg className="animate-spin h-4 w-4 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <svg className="animate-spin h-3.5 w-3.5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
                                             </svg>
@@ -343,7 +343,7 @@ export default function AdminOrganisationsPage() {
                                         </>
                                     ) : (
                                         <>
-                                            <IconDownload size={18} className="mr-2" />
+                                            <IconDownload size={16} className="mr-2" />
                                             Export Excel
                                         </>
                                     )}
@@ -413,7 +413,7 @@ export default function AdminOrganisationsPage() {
                                                     <div className="flex flex-wrap gap-1">
                                                         {organisation.organisation_types && organisation.organisation_types.length > 0 ? (
                                                             organisation.organisation_types.slice(0, 2).map((type, index) => (
-                                                                <span key={index} className="inline-flex px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
+                                                                <span key={index} className="inline-flex text-center px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
                                                                     {type}
                                                                 </span>
                                                             ))

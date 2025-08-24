@@ -36,7 +36,7 @@ export default function Header() {
         { name: 'News', href: '/news' },
         { name: 'Events', href: '/events' },
         { name: 'For Volunteers', href: '/volunteers' },
-        { name: 'For Organizations', href: '/organizations' },
+        { name: 'For Organisations', href: '/organisations' },
         { name: 'Donate', href: '/donate' },
         { name: 'Contact Us', href: '/contact' }
     ];

@@ -348,7 +348,7 @@ export default function EditOrganisationPage() {
             {/* Header */}
             <div className="mb-8">
                 <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center space-x-4">
+                    <div className="flex items-center !space-x-0">
                         <Link 
                             to="/admin/organisations" 
                             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
