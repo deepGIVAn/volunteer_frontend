@@ -63,7 +63,7 @@ export default function LoginPage() {
 						body: JSON.stringify(data),
 						redirect: 'manual' // Handle redirects manually
 					});
-
+					navigate(RoutesPath.admin);
 					// Check if it's a redirect response (status 302)
 					if (callbackResponse.status === 302 || callbackResponse.type === 'opaqueredirect') {
 						// Callback successful and redirected, navigate to admin
@@ -82,6 +82,7 @@ export default function LoginPage() {
 						setError("Authentication callback failed. Please try again.");
 						return;
 					}
+					navigate(RoutesPath.admin);
 				} catch (callbackErr) {
 					console.error("Callback error:", callbackErr);
 					setError("Authentication callback failed. Please try again.");
