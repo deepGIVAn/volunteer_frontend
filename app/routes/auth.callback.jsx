@@ -23,29 +23,30 @@ export async function action({ request }) {
 			session.set("token", loginData.token);
 		}
 
-		// Return success response with session cookie
+		// Store login timestamp for session management
+		session.set("loginTime", new Date().toISOString());
+
+		// Return redirect with proper cookie headers
 		return redirect(RoutesPath.admin, {
 			headers: {
 				"Set-Cookie": await commitSession(session),
+				// Add cache control to prevent caching of auth responses
+				"Cache-Control": "no-cache, no-store, must-revalidate",
+				"Pragma": "no-cache",
+				"Expires": "0"
 			},
 		});
-		// return json(
-		// 	{ 
-		// 		success: true, 
-		// 		message: "Session created successfully",
-		// 	},
-		// 	{
-		// 		headers: {
-		// 			"Set-Cookie": await commitSession(session),
-		// 		},
-		// 	}
-		// );
 
 	} catch (error) {
 		console.error("Callback error:", error);
 		return json(
 			{ success: false, message: "Authentication callback failed" },
-			{ status: 500 }
+			{ 
+				status: 500,
+				headers: {
+					"Cache-Control": "no-cache, no-store, must-revalidate"
+				}
+			}
 		);
 	}
 }

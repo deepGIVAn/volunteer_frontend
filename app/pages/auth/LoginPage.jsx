@@ -61,32 +61,30 @@ export default function LoginPage() {
 							'Content-Type': 'application/json',
 						},
 						body: JSON.stringify(data),
-						redirect: 'manual' // Handle redirects manually
+						credentials: 'include' // Ensure cookies are included
 					});
-					navigate(RoutesPath.admin);
-					// Check if it's a redirect response (status 302)
-					if (callbackResponse.status === 302 || callbackResponse.type === 'opaqueredirect') {
-						// Callback successful and redirected, navigate to admin
+
+					// Handle redirect response
+					if (callbackResponse.redirected) {
+						// The server redirected us, follow the redirect
+						window.location.href = callbackResponse.url;
+						return;
+					}
+
+					if (callbackResponse.ok) {
+						// Callback successful, navigate to admin
 						setTimeout(() => {
 							navigate(RoutesPath.admin);
-						}, 1500);
-					} else if (callbackResponse.ok) {
-						// Callback successful (if it returns JSON instead of redirect)
-						setTimeout(() => {
-							navigate(RoutesPath.admin);
-						}, 1500);
+						}, 1000);
 					} else {
 						// Callback failed
 						const callbackData = await callbackResponse.json();
 						console.warn("Callback failed:", callbackData);
 						setError("Authentication callback failed. Please try again.");
-						return;
 					}
-					navigate(RoutesPath.admin);
 				} catch (callbackErr) {
 					console.error("Callback error:", callbackErr);
 					setError("Authentication callback failed. Please try again.");
-					return;
 				}
 			} else {
 				setError(data.message || "Login failed. Please try again.");
