@@ -476,7 +476,7 @@ export default function AdminVolunteersPage() {
                                                     </p>
                                                     {!searchTerm && !statusFilter && (
                                                         <Link
-                                                            to="/admin/volunteers/add"
+                                                            to="/admin/add-volunteer"
                                                             className="mt-4 inline-flex items-center px-4 py-2 bg-[#C7102F] text-white rounded-lg hover:bg-red-700 transition-colors"
                                                         >
                                                             <IconPlus size={20} className="mr-2" />

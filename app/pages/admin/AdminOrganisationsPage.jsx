@@ -382,7 +382,7 @@ export default function AdminOrganisationsPage() {
                                                     </p>
                                                     {!searchTerm && !statusFilter && (
                                                         <Link
-                                                            to="/admin/organisations/add"
+                                                            to="/admin/add-organisation"
                                                             className="mt-4 inline-flex items-center px-4 py-2 bg-[#C7102F] text-white rounded-lg hover:bg-red-700 transition-colors"
                                                         >
                                                             <IconPlus size={20} className="mr-2" />
