@@ -8,8 +8,12 @@ import {
     IconClock,
     IconCheck,
     IconX,
-    IconFileText
+    IconFileText,
+    IconPaperclip,
+    // IconDownload,
+    IconEye
 } from '@tabler/icons-react';
+import { formatDate } from '../../utiils/dateUtils';
 
 export default function OrganisationView({ organisation }) {
     if (!organisation) return null;
@@ -241,6 +245,56 @@ export default function OrganisationView({ organisation }) {
                             isBoolean={true}
                         />
                     </div>
+
+                    {/* Attachments Section */}
+                    {organisation.attachment && (
+                        <div className="pt-4">
+                            <h4 className="text-lg font-medium text-gray-900 mb-4">Attachments</h4>
+                            <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center space-x-3">
+                                        <IconPaperclip size={20} className="text-[#C7102F]" />
+                                        <div>
+                                            <button
+                                                onClick={() => {
+                                                    console.log(organisation.attachment);
+                                                    // Preview functionality
+                                                    if (organisation.attachment) {
+                                                        window.open(organisation.attachment, '_blank');
+                                                    }
+                                                }}
+                                                className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-md hover:bg-blue-100 transition-colors"
+                                                title="Preview attachment"
+                                            >
+                                                <IconEye size={14} className="mr-1" />
+                                                Preview
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center space-x-2">
+                                        {/* <button
+                                            onClick={() => {
+                                                // Download functionality
+                                                if (organisation.attachment_url) {
+                                                    const link = document.createElement('a');
+                                                    link.href = organisation.attachment_url;
+                                                    link.download = organisation.attachment_name || 'organisation_document';
+                                                    document.body.appendChild(link);
+                                                    link.click();
+                                                    document.body.removeChild(link);
+                                                }
+                                            }}
+                                            className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-green-700 bg-green-50 border border-green-200 rounded-md hover:bg-green-100 transition-colors"
+                                            title="Download attachment"
+                                        >
+                                            <IconDownload size={14} className="mr-1" />
+                                            Download
+                                        </button> */}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -251,25 +305,25 @@ export default function OrganisationView({ organisation }) {
                     {organisation.added_date && (
                         <div>
                             <span className="font-medium text-gray-600">Added:</span>
-                            <p className="text-gray-900">{new Date(organisation.added_date).toLocaleDateString()}</p>
+                            <p className="text-gray-900">{formatDate(organisation.added_date)}</p>
                         </div>
                     )}
                     {organisation.created_at && (
                         <div>
                             <span className="font-medium text-gray-600">Created:</span>
-                            <p className="text-gray-900">{new Date(organisation.created_at).toLocaleDateString()}</p>
+                            <p className="text-gray-900">{formatDate(organisation.created_at)}</p>
                         </div>
                     )}
                     {organisation.updated_at && (
                         <div>
                             <span className="font-medium text-gray-600">Updated:</span>
-                            <p className="text-gray-900">{new Date(organisation.updated_at).toLocaleDateString()}</p>
+                            <p className="text-gray-900">{formatDate(organisation.updated_at)}</p>
                         </div>
                     )}
                     {organisation.deactivated_date && (
                         <div>
                             <span className="font-medium text-gray-600">Deactivated:</span>
-                            <p className="text-gray-900">{new Date(organisation.deactivated_date).toLocaleDateString()}</p>
+                            <p className="text-gray-900">{formatDate(organisation.deactivated_date)}</p>
                         </div>
                     )}
                 </div>

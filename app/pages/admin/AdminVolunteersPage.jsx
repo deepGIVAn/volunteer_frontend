@@ -16,6 +16,7 @@ import {
 } from '@tabler/icons-react';
 import Popup from '../../components/base/Popup';
 import VolunteerView from '../../components/base/VolunteerView';
+import { formatDateForFilename, calculateAge } from '../../utiils/dateUtils';
 import clsx from 'clsx';
 
 export default function AdminVolunteersPage() {
@@ -222,7 +223,7 @@ export default function AdminVolunteersPage() {
                     `"${volunteer.email || ''}"`,
                     `"${volunteer.phone || ''}"`,
                     `"${volunteer.city || ''}"`,
-                    volunteer.year_of_birth ? new Date().getFullYear() - volunteer.year_of_birth : '',
+                    volunteer.year_of_birth ? calculateAge(volunteer.year_of_birth) : '',
                     `"${volunteer.hours || ''}"`,
                     `"${getStatusText(volunteer.status)}"`,
                     `"${volunteer.skills || ''}"`,
@@ -235,7 +236,7 @@ export default function AdminVolunteersPage() {
             const link = document.createElement('a');
             const url = URL.createObjectURL(blob);
             link.setAttribute('href', url);
-            link.setAttribute('download', `volunteers_export_${new Date().toISOString().split('T')[0]}.csv`);
+            link.setAttribute('download', `volunteers_export_${formatDateForFilename()}.csv`);
             link.style.visibility = 'hidden';
             document.body.appendChild(link);
             link.click();
@@ -427,7 +428,7 @@ export default function AdminVolunteersPage() {
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <div className="text-sm text-gray-900">{volunteer.city || 'N/A'}</div>
                                                     <div className="text-sm text-gray-500">
-                                                        {volunteer.year_of_birth ? `Age: ${new Date().getFullYear() - volunteer.year_of_birth}` : 'Age: N/A'}
+                                                        {volunteer.year_of_birth ? `Age: ${calculateAge(volunteer.year_of_birth)}` : 'Age: N/A'}
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">

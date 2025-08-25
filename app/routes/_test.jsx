@@ -1,5 +1,6 @@
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { getCurrentNZDate, formatDateTime } from "../utiils/dateUtils";
 
 export async function loader() {
   const databaseUrl = process.env.DATABASE_URL;
@@ -7,7 +8,7 @@ export async function loader() {
   // Return server data using Remix's json helper
   return json({ 
     databaseUrl: databaseUrl || "Not configured",
-    serverTimestamp: new Date().toISOString()
+    serverTimestamp: getCurrentNZDate()
   });
 }
 
@@ -32,7 +33,7 @@ export default function AdminPage() {
         <div className="bg-blue-100 p-4 rounded">
           <h2 className="font-semibold">Server Environment</h2>
           <p><strong>Database URL:</strong> {databaseUrl}</p>
-          <p><strong>Server Time:</strong> {serverTimestamp}</p>
+          <p><strong>Server Time:</strong> {formatDateTime(serverTimestamp)}</p>
         </div>
       </div>
     </div>

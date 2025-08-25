@@ -1,5 +1,6 @@
 import { json, redirect } from "@remix-run/node";
 import { getSession, commitSession } from "../utiils/sessions.server";
+import { getCurrentNZDate } from "../utiils/dateUtils";
 import { RoutesPath } from "../utiils/Path";
 
 export async function action({ request }) {
@@ -24,7 +25,7 @@ export async function action({ request }) {
 		}
 
 		// Store login timestamp for session management
-		session.set("loginTime", new Date().toISOString());
+		session.set("loginTime", getCurrentNZDate());
 
 		// Return redirect with proper cookie headers
 		return redirect(RoutesPath.admin, {

@@ -12,6 +12,7 @@ import {
 } from '@tabler/icons-react';
 import Popup from '../../components/base/Popup';
 import OrganisationView from '../../components/base/OrganisationView';
+import { formatDateForFilename } from '../../utiils/dateUtils';
 import clsx from 'clsx';
 
 export default function AdminOrganisationsPage() {
@@ -36,92 +37,6 @@ export default function AdminOrganisationsPage() {
                     },
                 });
                 const mockData = await response.json();
-                // Simulate API call
-                // await new Promise(resolve => setTimeout(resolve, 1000));
-                
-                // const mockData = [
-                //     {
-                //         id: '1',
-                //         title: 'Ms.',
-                //         organisation_name: 'Community Health Centre',
-                //         organisation_branch: 'Main Branch',
-                //         physical_address: '123 Main Street, Palmerston North',
-                //         postal_address: 'PO Box 123, Palmerston North',
-                //         contact_name: 'Jane Smith',
-                //         contact_phone: '06-123-4567',
-                //         contact_email: 'jane@healthcentre.co.nz',
-                //         company_aim: 'To provide accessible healthcare services to the community.',
-                //         website: 'https://healthcentre.co.nz',
-                //         volunteer_name: 'John Doe',
-                //         volunteer_phone: '06-765-4321',
-                //         volunteer_email: 'john@healthcentre.co.nz',
-                //         time_role: 'Part-time',
-                //         disability: true,
-                //         policies: true,
-                //         risk: true,
-                //         charity_number: 'CC12345',
-                //         fee: 'No fee',
-                //         regions: ['Palmerston North', 'Manawatū'],
-                //         organisation_types: ['Health & Medical', 'Community Services'],
-                //         status: 1,
-                //         created_at: '2024-01-15T10:30:00Z',
-                //         updated_at: '2024-01-20T14:45:00Z'
-                //     },
-                //     {
-                //         id: '2',
-                //         title: 'Mr.',
-                //         organisation_name: 'Environmental Action Group',
-                //         organisation_branch: 'Horowhenua Branch',
-                //         physical_address: '456 Green Street, Levin',
-                //         postal_address: 'PO Box 456, Levin',
-                //         contact_name: 'Mike Green',
-                //         contact_phone: '06-987-6543',
-                //         contact_email: 'mike@enviroaction.org.nz',
-                //         company_aim: 'Protecting and restoring our natural environment for future generations.',
-                //         website: 'https://enviroaction.org.nz',
-                //         volunteer_name: 'Sarah Wilson',
-                //         volunteer_phone: '06-567-8901',
-                //         volunteer_email: 'sarah@enviroaction.org.nz',
-                //         time_role: 'Full-time',
-                //         disability: false,
-                //         policies: true,
-                //         risk: true,
-                //         charity_number: 'CC67890',
-                //         fee: '$25 annual',
-                //         regions: ['Horowhenua', 'Tararua'],
-                //         organisation_types: ['Environment & Conservation'],
-                //         status: 2,
-                //         created_at: '2024-02-01T09:15:00Z',
-                //         updated_at: '2024-02-10T11:20:00Z'
-                //     },
-                //     {
-                //         id: '3',
-                //         title: 'Dr.',
-                //         organisation_name: 'Youth Education Trust',
-                //         organisation_branch: null,
-                //         physical_address: '789 Education Lane, Palmerston North',
-                //         postal_address: 'PO Box 789, Palmerston North',
-                //         contact_name: 'Dr. Amanda Lee',
-                //         contact_phone: '06-555-1234',
-                //         contact_email: 'amanda@youthcare.org.nz',
-                //         company_aim: 'Empowering young people through education and mentorship programs.',
-                //         website: 'https://youthcare.org.nz',
-                //         volunteer_name: 'Peter Johnson',
-                //         volunteer_phone: '06-444-5678',
-                //         volunteer_email: 'peter@youthcare.org.nz',
-                //         time_role: 'Part-time',
-                //         disability: true,
-                //         policies: true,
-                //         risk: false,
-                //         charity_number: 'CC11111',
-                //         fee: 'No fee',
-                //         regions: ['Palmerston North'],
-                //         organisation_types: ['Education & Training', 'Youth Services'],
-                //         status: 4,
-                //         created_at: '2024-01-05T16:00:00Z',
-                //         updated_at: '2024-01-05T16:00:00Z'
-                //     }
-                // ];
                 
                 setOrganisations(mockData);
                 setFilteredOrganisations(mockData);
@@ -211,7 +126,7 @@ export default function AdminOrganisationsPage() {
             const link = document.createElement('a');
             const url = URL.createObjectURL(blob);
             link.setAttribute('href', url);
-            link.setAttribute('download', `organisations_export_${new Date().toISOString().split('T')[0]}.csv`);
+            link.setAttribute('download', `organisations_export_${formatDateForFilename()}.csv`);
             link.style.visibility = 'hidden';
             document.body.appendChild(link);
             link.click();

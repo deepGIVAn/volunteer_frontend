@@ -9,27 +9,10 @@ import {
     IconCheck,
     IconX
 } from '@tabler/icons-react';
+import { formatDate, calculateAge } from '../../utiils/dateUtils';
 
 export default function VolunteerView({ volunteer }) {
     if (!volunteer) return null;
-
-    const formatDate = (dateString) => {
-        if (!dateString) return 'N/A';
-        try {
-            return new Date(dateString).toLocaleDateString('en-NZ', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-        } catch {
-            return 'N/A';
-        }
-    };
-
-    const getAge = (yearOfBirth) => {
-        if (!yearOfBirth) return 'N/A';
-        return new Date().getFullYear() - yearOfBirth;
-    };
 
     const getStatusColor = (status) => {
         switch (status) {
@@ -113,7 +96,7 @@ export default function VolunteerView({ volunteer }) {
                         value={volunteer.street ? `${volunteer.street}, ${volunteer.city} ${volunteer.post_code}` : `${volunteer.city} ${volunteer.post_code}`} 
                     />
                     <InfoRow icon={IconUser} label="Gender" value={getGenderText(volunteer.gender)} />
-                    <InfoRow icon={IconCalendar} label="Age" value={getAge(volunteer.year_of_birth)} />
+                    <InfoRow icon={IconCalendar} label="Age" value={calculateAge(volunteer.year_of_birth)} />
                 </div>
 
                 <div className="space-y-4">
