@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useRouteLoaderData } from '@remix-run/react';
+import { Link, useRouteLoaderData, useNavigate } from '@remix-run/react';
 import { 
     IconArrowLeft, 
     IconBuilding, 
@@ -164,10 +164,11 @@ const MultiSelectField = ({ label, name, options, required = false, formData, ha
 
 export default function AddOrganisationPage(props) {
     const { user } = useRouteLoaderData("routes/admin");
+    const navigate = useNavigate();
     const regions = props.regions || [];
     const organisationTypes = props.types || [];
     
-    const [formData, setFormData] = useState({
+    const initialFormData = {
         title: '',
         organisation_name: '',
         regions_list: [],
@@ -193,9 +194,20 @@ export default function AddOrganisationPage(props) {
         date_added: '',
         date_deactivated: '',
         attachment: null
-    });
+    };
+    
+    const [formData, setFormData] = useState(initialFormData);
 
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const resetForm = () => {
+        setFormData(initialFormData);
+        // Reset file input
+        const fileInput = document.getElementById('attachment');
+        if (fileInput) {
+            fileInput.value = '';
+        }
+    };
 
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -255,7 +267,10 @@ export default function AddOrganisationPage(props) {
 
             const data = await response.json();
             console.log('Organisation added:', data);
-            alert('Organisation added successfully!');
+            
+            // Reset form and navigate back to organisations list
+            resetForm();
+            navigate('/admin/organisations');
         } catch (error) {
             console.error('Error adding organisation:', error);
             alert('Error adding organisation. Please try again.');
