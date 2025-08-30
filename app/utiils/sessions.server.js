@@ -43,7 +43,7 @@ export const sessionStorage = createCookieSessionStorage({
 		// Dynamic secure flag based on environment
 		secure: shouldUseSecureCookies(),
 		// Set max age for better session management  
-		maxAge: 60 * 60 * 24 * 7, // 7 days
+		maxAge: 60 * 60 * 24 * 1, // 7 days
 	},
 });
 

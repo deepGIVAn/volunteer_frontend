@@ -10,157 +10,16 @@ import {
     IconUser,
     IconClock,
     IconFileText,
-    IconDeviceFloppy,
-    IconCalendar,
-    IconPaperclip,
-    IconChevronDown
+    IconDeviceFloppy
 } from '@tabler/icons-react';
-
-// Move components outside to prevent recreation on every render
-const FormField = ({ label, name, type = 'text', required = false, placeholder, icon: Icon, rows, formData, handleInputChange }) => (
-    <div className="space-y-2">
-        <label htmlFor={name} className="block text-sm font-medium text-gray-700">
-            {label} {required && <span className="text-red-500">*</span>}
-        </label>
-        <div className="relative">
-            {Icon && (
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Icon size={18} className="text-gray-400" />
-                </div>
-            )}
-            {type === 'textarea' ? (
-                <textarea
-                    id={name}
-                    name={name}
-                    rows={rows || 3}
-                    value={formData[name]}
-                    onChange={handleInputChange}
-                    placeholder={placeholder}
-                    className={`w-full ${Icon ? 'pl-10' : 'pl-3'} pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C7102F] focus:border-transparent`}
-                />
-            ) : (
-                <input
-                    type={type}
-                    id={name}
-                    name={name}
-                    value={formData[name]}
-                    onChange={handleInputChange}
-                    placeholder={placeholder}
-                    className={`w-full ${Icon ? 'pl-10' : 'pl-3'} pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C7102F] focus:border-transparent`}
-                />
-            )}
-        </div>
-    </div>
-);
-
-const CheckboxField = ({ label, name, description, formData, handleInputChange }) => (
-    <div className="flex items-start space-x-3">
-        <input
-            type="checkbox"
-            id={name}
-            name={name}
-            checked={formData[name]}
-            onChange={handleInputChange}
-            className="mt-1 h-4 w-4 text-[#C7102F] focus:ring-[#C7102F] border-gray-300 rounded"
-        />
-        <div className="flex-1">
-            <label htmlFor={name} className="text-sm font-medium text-gray-700">
-                {label}
-            </label>
-            {description && (
-                <p className="text-xs text-gray-500 mt-1">{description}</p>
-            )}
-        </div>
-    </div>
-);
-
-const FileField = ({ label, name, required = false, formData, handleFileChange }) => (
-    <div className="space-y-2">
-        <label htmlFor={name} className="block text-sm font-medium text-gray-700">
-            {label} {required && <span className="text-red-500">*</span>}
-        </label>
-        <div className="flex items-center space-x-4">
-            <label
-                htmlFor={name}
-                className="inline-flex items-center px-4 py-3 rounded-lg transition-colors cursor-pointer font-medium text-sm shadow-sm"
-            >
-                <IconPaperclip size={18} className="mr-2" />
-                Choose File
-            </label>
-            <input
-                type="file"
-                id={name}
-                name={name}
-                onChange={handleFileChange}
-                className="hidden"
-                accept="image/*"
-            />
-            <span className="text-sm text-gray-500 flex-1">
-                {formData[name] ? formData[name].name : 'No file chosen'}
-            </span>
-        </div>
-        <p className="text-xs text-gray-500">
-            Supported formats: JPG, JPEG, PNG, AVIF (Max 25MB)
-        </p>
-    </div>
-);
-
-const DateField = ({ label, name, required = false, formData, handleInputChange }) => (
-    <div className="space-y-2">
-        <label htmlFor={name} className="block text-sm font-medium text-gray-700">
-            {label} {required && <span className="text-red-500">*</span>}
-        </label>
-        <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <IconCalendar size={18} className="text-gray-400" />
-            </div>
-            <input
-                type="date"
-                id={name}
-                name={name}
-                value={formData[name]}
-                onChange={handleInputChange}
-                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C7102F] focus:border-transparent"
-            />
-        </div>
-    </div>
-);
-
-const MultiSelectField = ({ label, name, options, required = false, formData, handleMultiSelectChange }) => (
-    <div className="space-y-2">
-        <label className="block text-sm font-medium text-gray-700">
-            {label} {required && <span className="text-red-500">*</span>}
-        </label>
-        <div className="border border-gray-300 rounded-lg p-3 max-h-80 overflow-y-auto">
-            {options && options.length > 0 ? (
-                options.map((option) => (
-                    <div key={option.seq} className="flex items-center space-x-2 py-1">
-                        <input
-                            type="checkbox"
-                            id={`${name}_${option.seq}`}
-                            checked={formData[name].includes(option.seq)}
-                            onChange={(e) => {
-                                const currentList = formData[name];
-                                const newList = e.target.checked
-                                    ? [...currentList, option.seq]
-                                    : currentList.filter(id => id !== option.seq);
-                                handleMultiSelectChange(name, newList);
-                            }}
-                            className="h-4 w-4 text-[#C7102F] focus:ring-[#C7102F] border-gray-300 rounded"
-                        />
-                        <label htmlFor={`${name}_${option.seq}`} className="text-sm text-gray-700">
-                            {option.region || option.service || option.name || 'Unknown'}
-                        </label>
-                    </div>
-                ))
-            ) : (
-                <div className="text-sm text-gray-500 py-2">
-                    No options available
-                </div>
-            )}
-        </div>
-    </div>
-);
+import { 
+    FormField, 
+    CheckboxField, 
+    FileField, 
+    DateField, 
+    MultiSelectField, 
+    SelectField 
+} from '../../components/base/FormComponents';
 
 export default function AddOrganisationPage(props) {
     const { user } = useRouteLoaderData("routes/admin");
@@ -520,27 +379,19 @@ export default function AddOrganisationPage(props) {
 
                     {/* Status Dropdown */}
                     <div className="mb-6">
-                        <div className="space-y-2">
-                            <label htmlFor="status" className="block text-sm font-medium text-gray-700">
-                                Status
-                            </label>
-                            <div className='relative'>
-                                <select
-                                    id="status"
-                                    name="status"
-                                    value={formData.status}
-                                    onChange={handleInputChange}
-                                    className="w-full px-4 py-3 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C7102F] focus:border-transparent appearance-none text-sm font-medium"
-                                >
-                                    <option value="" className="">Select status</option>
-                                    <option value={1} className="">Active</option>
-                                    <option value={2} className="">Inactive</option>
-                                    <option value={3} className="">Awaiting Approval</option>
-                                    <option value={4} className="">Draft</option>
-                                </select>
-                                <IconChevronDown size={16} className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-900 pointer-events-none" />
-                            </div>
-                        </div>
+                        <SelectField
+                            label="Status"
+                            name="status"
+                            options={[
+                                { value: 1, label: 'Active' },
+                                { value: 2, label: 'Inactive' },
+                                { value: 3, label: 'Awaiting Approval' },
+                                { value: 4, label: 'Draft' }
+                            ]}
+                            placeholder="Select status"
+                            formData={formData}
+                            handleInputChange={handleInputChange}
+                        />
                     </div>
 
                     {/* File Attachment */}

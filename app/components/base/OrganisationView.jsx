@@ -308,18 +308,6 @@ export default function OrganisationView({ organisation }) {
                             <p className="text-gray-900">{formatDate(organisation.added_date)}</p>
                         </div>
                     )}
-                    {organisation.created_at && (
-                        <div>
-                            <span className="font-medium text-gray-600">Created:</span>
-                            <p className="text-gray-900">{formatDate(organisation.created_at)}</p>
-                        </div>
-                    )}
-                    {organisation.updated_at && (
-                        <div>
-                            <span className="font-medium text-gray-600">Updated:</span>
-                            <p className="text-gray-900">{formatDate(organisation.updated_at)}</p>
-                        </div>
-                    )}
                     {organisation.deactivated_date && (
                         <div>
                             <span className="font-medium text-gray-600">Deactivated:</span>
