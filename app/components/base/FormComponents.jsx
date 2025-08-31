@@ -109,26 +109,62 @@ export const FileField = ({ label, name, required = false, formData, handleFileC
     </div>
 );
 
-export const DateField = ({ label, name, required = false, formData, handleInputChange }) => (
-    <div className="space-y-2">
-        <label htmlFor={name} className="block text-sm font-medium text-gray-700">
-            {label} {required && <span className="text-red-500">*</span>}
-        </label>
-        <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <IconCalendar size={18} className="text-gray-400" />
+// DateField now supports date and time (datetime-local) and formats to NZ time
+export const DateField = ({ label, name, required = false, formData, handleInputChange }) => {
+    // Helper to format value for datetime-local input (YYYY-MM-DDTHH:mm)
+    const formatForInput = (value) => {
+        if (!value) return '';
+        // Accept both with and without seconds
+        const match = value.match(/^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2})(?::\d{2})?$/);
+        if (match) return match[1];
+        // Otherwise, try to parse and convert to NZ time
+        try {
+            const date = new Date(value);
+            const nzDate = new Date(date.toLocaleString('en-US', { timeZone: 'Pacific/Auckland' }));
+            const pad = (n) => n.toString().padStart(2, '0');
+            return `${nzDate.getFullYear()}-${pad(nzDate.getMonth()+1)}-${pad(nzDate.getDate())}T${pad(nzDate.getHours())}:${pad(nzDate.getMinutes())}`;
+        } catch {
+            return value;
+        }
+    };
+
+    // Always send ISO format (YYYY-MM-DDTHH:mm:ss) to backend
+    const handleDateChange = (e) => {
+        let val = e.target.value;
+        // If value is YYYY-MM-DDTHH:mm, append :00 for seconds
+        if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(val)) {
+            val = val + ':00';
+        }
+        // Call parent handler with ISO string
+        handleInputChange({
+            target: {
+                name: e.target.name,
+                value: val,
+                type: e.target.type,
+            }
+        });
+    };
+    return (
+        <div className="space-y-2">
+            <label htmlFor={name} className="block text-sm font-medium text-gray-700">
+                {label} {required && <span className="text-red-500">*</span>}
+            </label>
+            <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <IconCalendar size={18} className="text-gray-400" />
+                </div>
+                <input
+                    type="datetime-local"
+                    id={name}
+                    name={name}
+                    value={formatForInput(formData[name])}
+                    onChange={handleDateChange}
+                    className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C7102F] focus:border-transparent"
+                />
             </div>
-            <input
-                type="date"
-                id={name}
-                name={name}
-                value={formData[name]}
-                onChange={handleInputChange}
-                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C7102F] focus:border-transparent"
-            />
         </div>
-    </div>
-);
+    );
+};
 
 export const MultiSelectField = ({ label, name, options, required = false, formData, handleMultiSelectChange }) => (
     <div className="space-y-2">

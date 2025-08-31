@@ -34,7 +34,7 @@ export async function loader({ request, params }) {
 		let response = await fetch(`${import.meta.env.VITE_API_URL}/admin/get-volunteer/${id}`, {
 				method: 'GET',
 				headers: {
-						'Authorization': user?.token ? `Bearer ${   user.token}` : ''
+						'Authorization': user?.token ? `Bearer ${user.token}` : ''
 				},
 		});
 		volunteer = await response.json();

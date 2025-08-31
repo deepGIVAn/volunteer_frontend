@@ -7,14 +7,14 @@ import {
 	IconMapPin,
 	IconMail,
 	IconPhone,
-	IconCalendar,
+	// IconCalendar,
 	IconClock,
 	IconFileText,
 	IconDeviceFloppy,
 	IconStar,
 	IconHeart,
 	IconSchool,
-	IconPaperclip
+	// IconPaperclip
 } from '@tabler/icons-react';
 import {
 	FormField,

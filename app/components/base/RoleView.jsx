@@ -69,9 +69,8 @@ export default function RoleView({ role }) {
     const getStatusColor = (status) => {
         switch (status) {
             case 1: return 'bg-green-100 text-green-800';
-            case 2: return 'bg-yellow-100 text-yellow-800';
-            case 3: return 'bg-red-100 text-red-800';
-            case 4: return 'bg-gray-100 text-gray-800';
+            case 2: return 'bg-red-100 text-red-800';
+            case 3: return 'bg-yellow-100 text-yellow-800';
             default: return 'bg-gray-100 text-gray-800';
         }
     };
@@ -79,21 +78,17 @@ export default function RoleView({ role }) {
     const getStatusText = (status) => {
         switch (status) {
             case 1: return 'Active';
-            case 2: return 'Pending';
-            case 3: return 'Inactive';
-            case 4: return 'Draft';
+            case 2: return 'DeActivated';
+            case 3: return 'On-Hold';
             default: return 'Unknown';
         }
     };
 
     const getFilterColorText = (color) => {
         switch (color) {
-            case 1: return 'Red';
-            case 2: return 'Green';
-            case 3: return 'Blue';
-            case 4: return 'Yellow';
-            case 5: return 'Purple';
-            case 0: return 'Default';
+            case 1: return 'Green';
+            case 2: return 'Orange';
+            case 3: return 'Red';
             default: return 'Default';
         }
     };
@@ -101,11 +96,9 @@ export default function RoleView({ role }) {
     const getFilterColorBadge = (color) => {
         const colors = {
             0: 'bg-gray-100 text-gray-800',
-            1: 'bg-red-100 text-red-800',
-            2: 'bg-green-100 text-green-800',
-            3: 'bg-blue-100 text-blue-800',
-            4: 'bg-yellow-100 text-yellow-800',
-            5: 'bg-purple-100 text-purple-800'
+            1: 'bg-green-100 text-green-800',
+            2: 'bg-orange-100 text-orange-800',
+            3: 'bg-red-100 text-red-800',
         };
         return colors[color] || colors[0];
     };

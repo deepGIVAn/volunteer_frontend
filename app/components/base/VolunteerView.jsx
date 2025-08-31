@@ -8,7 +8,7 @@ import {
     IconFileText,
     IconCheck,
     IconX,
-    IconHeart,
+    // IconHeart,
     IconCar,
     IconUsers,
     IconStar,
@@ -63,10 +63,8 @@ export default function VolunteerView({ volunteer }) {
     const getStatusColor = (status) => {
         switch (status) {
             case 1: return 'bg-green-100 text-green-800';
-            case 2: return 'bg-yellow-100 text-yellow-800';
-            case 3: return 'bg-red-100 text-red-800';
-            case 4: return 'bg-blue-100 text-blue-800';
-            case 5: return 'bg-gray-100 text-gray-800';
+            case 2: return 'bg-red-100 text-red-800';
+            case 3: return 'bg-yellow-100 text-yellow-800';
             default: return 'bg-gray-100 text-gray-800';
         }
     };
@@ -74,10 +72,8 @@ export default function VolunteerView({ volunteer }) {
     const getStatusText = (status) => {
         switch (status) {
             case 1: return 'Active';
-            case 2: return 'Pending';
-            case 3: return 'Inactive';
-            case 4: return 'On Hold';
-            case 5: return 'Completed';
+            case 2: return 'DeActivated';
+            case 3: return 'Review';
             default: return 'Unknown';
         }
     };
@@ -87,19 +83,17 @@ export default function VolunteerView({ volunteer }) {
             case 1: return 'Male';
             case 2: return 'Female';
             case 3: return 'Other';
-            case 0: return 'Not specified';
+            case 4: return 'Not to Answer';
             default: return 'Not specified';
         }
     };
 
     const getColorText = (color) => {
         switch (color) {
-            case 1: return 'Red';
-            case 2: return 'Green';
-            case 3: return 'Blue';
-            case 4: return 'Yellow';
-            case 5: return 'Purple';
-            case 0: return 'Default';
+            case 0: return 'NiL';
+            case 1: return 'Green';
+            case 2: return 'Orange';
+            case 3: return 'Red';
             default: return 'Default';
         }
     };
