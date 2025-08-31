@@ -450,13 +450,13 @@ export default function AdminRolesPage({ organisations }) {
 							{/* Search */}
 							<div className="flex-1">
 								<div className="relative">
-									<IconSearch size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+									<IconSearch size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
 									<input
 										type="text"
 										placeholder="Search roles, organisations, or descriptions..."
 										value={searchTerm}
 										onChange={(e) => setSearchTerm(e.target.value)}
-										className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C7102F] focus:border-transparent"
+										className="w-full pl-10 text-sm pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C7102F] focus:border-transparent"
 									/>
 								</div>
 							</div>
@@ -464,11 +464,11 @@ export default function AdminRolesPage({ organisations }) {
 							{/* Status Filter */}
 							<div className="lg:w-48">
 								<div className="relative">
-									<IconFilter size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+									<IconFilter size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
 									<select
 										value={statusFilter}
 										onChange={(e) => setStatusFilter(e.target.value)}
-										className="w-full pl-10 pr-8 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C7102F] focus:border-transparent appearance-none"
+										className="w-full text-sm pl-10 pr-8 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C7102F] focus:border-transparent appearance-none"
 									>
 										<option value="">All Status</option>
 										<option value="1">Active</option>
@@ -482,11 +482,11 @@ export default function AdminRolesPage({ organisations }) {
 							{/* Organisation Filter */}
 							<div className="lg:w-64">
 								<div className="relative">
-									<IconBuilding size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+									<IconBuilding size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
 									<select
 										value={organisationFilter}
 										onChange={(e) => setOrganisationFilter(e.target.value)}
-										className="w-full pl-10 pr-8 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C7102F] focus:border-transparent appearance-none"
+										className="w-full text-sm pl-10 pr-8 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C7102F] focus:border-transparent appearance-none"
 									>
 										<option value="">All Organisations</option>
 										{organisations.map((org) => (
@@ -504,7 +504,7 @@ export default function AdminRolesPage({ organisations }) {
 								<button
 									onClick={handleExportToExcel}
 									disabled={exportLoading || filteredRoles.length === 0}
-									className="w-full lg:w-auto inline-flex items-center justify-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium shadow-sm"
+									className="w-full text-sm lg:w-auto inline-flex items-center justify-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium shadow-sm"
 								>
 									{exportLoading ? (
 										<>

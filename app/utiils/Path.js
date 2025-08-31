@@ -6,4 +6,5 @@ export const RoutesPath = {
 	adminVolunteers: '/admin/volunteers',
 	adminRecycleBin: '/admin/recycle-bin',
 	adminRoles: '/admin/roles',
+	adminControlCenter: '/admin/control-center'
 }

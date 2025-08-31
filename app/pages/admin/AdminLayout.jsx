@@ -7,7 +7,8 @@ import {
 	IconBuilding, 
 	IconUsers, 
 	IconTrash, 
-	IconShield 
+	IconSettings,
+	IconBriefcase
 } from "@tabler/icons-react";
 import clsx from "clsx";
 import { useState } from "react";
@@ -17,8 +18,9 @@ const sidebarItems = [
 	{ label: 'Dashboard', icon: <IconHome size={18} />, type: 'link', to: RoutesPath.admin },
 	{ label: 'Organisations', icon: <IconBuilding size={18} />, type: 'link', to: RoutesPath.adminOrganisations },
 	{ label: 'Volunteers', icon: <IconUsers size={18} />, type: 'link', to: RoutesPath.adminVolunteers },
-	{ label: 'Roles', icon: <IconShield size={18} />, type: 'link', to: RoutesPath.adminRoles },
+	{ label: 'Roles', icon: <IconBriefcase size={18} />, type: 'link', to: RoutesPath.adminRoles },
 	{ label: 'Recycle Bin', icon: <IconTrash size={18} />, type: 'link', to: RoutesPath.adminRecycleBin },
+	{ label: 'Control Center', icon: <IconSettings size={18} />, type: 'link', to: RoutesPath.adminControlCenter },
 ]
 
 export default function AdminLayout() {
