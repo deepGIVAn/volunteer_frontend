@@ -1,11 +1,11 @@
 
 import { useEffect, useState } from "react";
-import { Link } from "@remix-run/react";
+import { Link, useRouteLoaderData } from "@remix-run/react";
 import {
 	IconBuilding,
 	IconUser,
 	IconBriefcase,
-	IconChevronRight,
+	// IconChevronRight,
 	IconArrowRight,
 	IconCheck,
 	IconAlertTriangle,
@@ -13,13 +13,19 @@ import {
 } from '@tabler/icons-react';
 
 function AdminDataOverview() {
+	const { user } = useRouteLoaderData("routes/admin");
 	const [orgStats, setOrgStats] = useState({ total: 0, active: 0, inactive: 0, awaiting: 0, draft: 0 });
 	const [volStats, setVolStats] = useState({ total: 0, active: 0, deactivated: 0, review: 0 });
 	const [roleStats, setRoleStats] = useState({ total: 0, active: 0, deactivated: 0, onhold: 0 });
 
 	useEffect(() => {
 		// Fetch organisations
-		fetch(`${import.meta.env.VITE_API_URL}/admin/get-all-organisations/`, { headers: { Authorization: "" } })
+		fetch(`${import.meta.env.VITE_API_URL}/admin/get-all-organisations/`, {
+				method: 'GET',
+				headers: {
+					'Authorization': user?.token ? `Bearer ${user.token}` : ''
+				},
+			})
 			.then(res => res.json())
 			.then(data => {
 				setOrgStats({
@@ -32,7 +38,12 @@ function AdminDataOverview() {
 			});
 
 		// Fetch volunteers
-		fetch(`${import.meta.env.VITE_API_URL}/admin/get-all-volunteers/`, { headers: { Authorization: "" } })
+		fetch(`${import.meta.env.VITE_API_URL}/admin/get-all-volunteers/`, {
+					method: 'GET',
+					headers: {
+						'Authorization': user?.token ? `Bearer ${user.token}` : ''
+					},
+			})
 			.then(res => res.json())
 			.then(data => {
 				setVolStats({
@@ -44,10 +55,21 @@ function AdminDataOverview() {
 			});
 
 		// Fetch roles (replace with your actual endpoint)
-		fetch(`${import.meta.env.VITE_API_URL}/admin/get-all-roles/`, { headers: { Authorization: "" } })
+		fetch(`${import.meta.env.VITE_API_URL}/admin/get-all-roles/`, {
+					method: 'GET',
+					headers: {
+						'Authorization': user?.token ? `Bearer ${user.token}` : ''
+					},
+			})
 			.then(res => res.json())
 			.then(data => {
-				setRoleStats({ total: data.length });
+				// setRoleStats({ total: data.length });
+				setRoleStats({
+					total: data.length,
+					active: data.filter(v => v.status === 1).length,
+					deactivated: data.filter(v => v.status === 2).length,
+					onhold: data.filter(v => v.status === 3).length,
+				});
 			});
 	}, []);
 
@@ -128,13 +150,13 @@ function AdminDataOverview() {
 								Total: {roleStats.total}
 							</span>
 							<span className="inline-flex items-center px-2 py-1 bg-blue-50 text-blue-700 rounded font-medium">
-								<IconCheck size={16} className="mr-1" /> Active: {volStats.active}
+								<IconCheck size={16} className="mr-1" /> Active: {roleStats.active}
 							</span>
 							<span className="inline-flex items-center px-2 py-1 bg-red-50 text-red-700 rounded font-medium">
-								<IconAlertTriangle size={16} className="mr-1" /> Deactivated: {volStats.deactivated}
+								<IconAlertTriangle size={16} className="mr-1" /> Deactivated: {roleStats.deactivated}
 							</span>
 							<span className="inline-flex items-center px-2 py-1 bg-yellow-50 text-yellow-700 rounded font-medium">
-								On Hold: {volStats.review}
+								On Hold: {roleStats.onhold}
 							</span>
 						</div>
 						<Link to="/admin/roles" className="mt-3 inline-flex items-center text-gray-700 hover:underline text-sm font-medium group">
