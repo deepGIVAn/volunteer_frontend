@@ -147,9 +147,6 @@ export default function AddRolePage({ organisations, regions, days, time, activi
 
 		const form = new FormData();
 		
-		console.log(formData);
-		
-
 		// List of all array fields in the form
 		const arrayFields = [
 			'region_of_placement_list',

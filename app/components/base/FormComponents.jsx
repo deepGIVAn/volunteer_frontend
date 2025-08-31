@@ -156,7 +156,7 @@ export const MultiSelectField = ({ label, name, options, required = false, formD
                                 className="h-4 w-4 text-[#C7102F] focus:ring-[#C7102F] border-gray-300 rounded"
                             />
                             <label htmlFor={`${name}_${option.seq}`} className="text-sm text-gray-700">
-                                {option.region || option.service || option.name || option.group_activity || option.sport_activity || option.other_activity || option.financial_activity || option.support_activity || option.hospitality_activity || option.event_activity || option.technology_activity || option.home_cares_activity || option.mantinance_activity || option.administration_activity || option.driving_activity || option.time || option.day || 'Unknown'}
+                                {option.region || option.service || option.name || option.group_activity || option.sport_activity || option.other_activity || option.financial_activity || option.support_activity || option.hospitality_activity || option.event_activity || option.technology_activity || option.home_cares_activity || option.mantinance_activity || option.administration_activity || option.driving_activity || option.time || option.day || option.activity ||  option.ethnic_origin ||  option.transport ||  option.labour || option.work_type ||  option.refer_from || 'Unknown'}
                             </label>
                         </div>
                     );
