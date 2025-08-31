@@ -8,7 +8,9 @@ import {
     IconFilter,
     IconBuilding,
     IconChevronDown,
-    IconDownload
+    IconDownload,
+    IconUser,
+    IconCalendar
 } from '@tabler/icons-react';
 import Popup from '../../components/base/Popup';
 import OrganisationView from '../../components/base/OrganisationView';
@@ -72,8 +74,8 @@ export default function AdminOrganisationsPage() {
     const getStatusColor = (status) => {
         switch (status) {
             case 1: return 'bg-green-100 text-green-800';
-            case 2: return 'bg-yellow-100 text-yellow-800';
-            case 3: return 'bg-red-100 text-red-800';
+            case 2: return 'bg-red-100 text-red-800';
+            case 3: return 'bg-yellow-100 text-yellow-800';
             case 4: return 'bg-gray-100 text-gray-800';
             default: return 'bg-gray-100 text-gray-800';
         }
@@ -82,8 +84,8 @@ export default function AdminOrganisationsPage() {
     const getStatusText = (status) => {
         switch (status) {
             case 1: return 'Active';
-            case 2: return 'Pending';
-            case 3: return 'Inactive';
+            case 2: return 'Inactive';
+            case 3: return 'Awaiting Approval';
             case 4: return 'Draft';
             default: return 'Unknown';
         }
@@ -170,7 +172,7 @@ export default function AdminOrganisationsPage() {
             ) : (
                 <>
                     {/* Statistics */}
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+                    <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
                         <div className="bg-white p-4 rounded-lg border border-gray-200">
                             <div className="flex items-center justify-between">
                                 <div>
@@ -180,7 +182,7 @@ export default function AdminOrganisationsPage() {
                                 <IconBuilding className="text-blue-500" size={24} />
                             </div>
                         </div>
-                        {/* <div className="bg-white p-4 rounded-lg border border-gray-200">
+                        <div className="bg-white p-4 rounded-lg border border-gray-200">
                             <div className="flex items-center justify-between">
                                 <div>
                                     <p className="text-sm text-gray-600">Active</p>
@@ -194,23 +196,36 @@ export default function AdminOrganisationsPage() {
                         <div className="bg-white p-4 rounded-lg border border-gray-200">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <p className="text-sm text-gray-600">Pending</p>
-                                    <p className="text-2xl font-bold text-yellow-600">
+                                    <p className="text-sm text-gray-600">Inactive</p>
+                                    <p className="text-2xl font-bold text-red-600">
                                         {organisations.filter(org => org.status === 2).length}
                                     </p>
                                 </div>
-                                <IconUser className="text-yellow-500" size={24} />
+                                <IconUser className="text-red-500" size={24} />
                             </div>
                         </div>
                         <div className="bg-white p-4 rounded-lg border border-gray-200">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <p className="text-sm text-gray-600">Filtered Results</p>
-                                    <p className="text-2xl font-bold text-gray-900">{filteredOrganisations.length}</p>
+                                    <p className="text-sm text-gray-600">Awaiting Approval</p>
+                                    <p className="text-2xl font-bold text-yellow-600">
+                                        {organisations.filter(org => org.status === 3).length}
+                                    </p>
                                 </div>
-                                <IconCalendar className="text-purple-500" size={24} />
+                                <IconCalendar className="text-yellow-500" size={24} />
                             </div>
-                        </div> */}
+                        </div>
+                        <div className="bg-white p-4 rounded-lg border border-gray-200">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <p className="text-sm text-gray-600">Draft</p>
+                                    <p className="text-2xl font-bold text-gray-600">
+                                        {organisations.filter(org => org.status === 4).length}
+                                    </p>
+                                </div>
+                                <IconUser className="text-gray-500" size={24} />
+                            </div>
+                        </div>
                     </div>
 
                     {/* Filters */}

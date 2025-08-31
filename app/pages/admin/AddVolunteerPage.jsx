@@ -114,6 +114,56 @@ export default function AddVolunteerPage() {
         { seq: 7, name: 'IT Support' }
     ];
 
+    // Additional option sets for comprehensive volunteer management
+    const genderOptions = [
+        { seq: 0, name: 'Not specified' },
+        { seq: 1, name: 'Male' },
+        { seq: 2, name: 'Female' },
+        { seq: 3, name: 'Other' }
+    ];
+
+    const statusOptions = [
+        { seq: 1, name: 'Active' },
+        { seq: 2, name: 'Pending' },
+        { seq: 3, name: 'Inactive' },
+        { seq: 4, name: 'On Hold' },
+        { seq: 5, name: 'Completed' }
+    ];
+
+    const colorOptions = [
+        { seq: 0, name: 'Default' },
+        { seq: 1, name: 'Red' },
+        { seq: 2, name: 'Green' },
+        { seq: 3, name: 'Blue' },
+        { seq: 4, name: 'Yellow' },
+        { seq: 5, name: 'Purple' }
+    ];
+
+    const ethnicOriginOptions = [
+        { seq: 1, name: 'NZ European' },
+        { seq: 2, name: 'Māori' },
+        { seq: 3, name: 'Pacific Islander' },
+        { seq: 4, name: 'Asian' },
+        { seq: 5, name: 'Other' }
+    ];
+
+    const referFromOptions = [
+        { seq: 1, name: 'Website' },
+        { seq: 2, name: 'Social Media' },
+        { seq: 3, name: 'Friend/Family' },
+        { seq: 4, name: 'Community Event' },
+        { seq: 5, name: 'Newspaper' },
+        { seq: 6, name: 'Radio' },
+        { seq: 7, name: 'Other' }
+    ];
+
+    const labourOptions = [
+        { seq: 1, name: 'Light Labour' },
+        { seq: 2, name: 'Medium Labour' },
+        { seq: 3, name: 'Heavy Labour' },
+        { seq: 4, name: 'No Physical Labour' }
+    ];
+
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData(prev => ({
@@ -274,7 +324,7 @@ export default function AddVolunteerPage() {
     );
 
     return (
-        <div className="mx-auto p-6">
+        <div className="">
             {/* Header */}
             <div className="mb-8">
                 <div className="flex items-center space-x-4 mb-4">

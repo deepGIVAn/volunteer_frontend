@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from '@remix-run/react';
+import { Link, useRouteLoaderData } from '@remix-run/react';
 import { 
     IconPlus, 
     IconEye, 
@@ -20,6 +20,7 @@ import { formatDateForFilename, calculateAge } from '../../utiils/dateUtils';
 import clsx from 'clsx';
 
 export default function AdminVolunteersPage() {
+    const { user } = useRouteLoaderData("routes/admin");
     const [volunteers, setVolunteers] = useState([]);
     const [filteredVolunteers, setFilteredVolunteers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -70,6 +71,19 @@ export default function AdminVolunteersPage() {
                         gender: 2,
                         ethnic_origin_list: [1],
                         activities_list: [1, 2, 3],
+                        activities_driving_list: [1],
+                        activities_administration_list: [1, 2],
+                        activities_mantinance_list: [],
+                        activities_homecares_list: [1],
+                        activities_technology_list: [1, 2],
+                        activities_event_list: [1],
+                        activities_hospitality_list: [],
+                        activities_support_list: [1, 2],
+                        activities_financial_list: [],
+                        activities_other_list: [],
+                        activities_sport_list: [1],
+                        activities_group_list: [1],
+                        deleted_at: null,
                         created_at: '2024-01-15T10:30:00Z',
                         updated_at: '2024-01-20T14:45:00Z'
                     },
@@ -106,6 +120,19 @@ export default function AdminVolunteersPage() {
                         gender: 1,
                         ethnic_origin_list: [2],
                         activities_list: [4, 5],
+                        activities_driving_list: [],
+                        activities_administration_list: [],
+                        activities_mantinance_list: [1],
+                        activities_homecares_list: [],
+                        activities_technology_list: [],
+                        activities_event_list: [1, 2],
+                        activities_hospitality_list: [1],
+                        activities_support_list: [1],
+                        activities_financial_list: [],
+                        activities_other_list: [1],
+                        activities_sport_list: [1, 2],
+                        activities_group_list: [],
+                        deleted_at: null,
                         created_at: '2024-02-01T09:15:00Z',
                         updated_at: '2024-02-10T11:20:00Z'
                     },
@@ -142,6 +169,19 @@ export default function AdminVolunteersPage() {
                         gender: 2,
                         ethnic_origin_list: [1, 3],
                         activities_list: [1, 6, 7],
+                        activities_driving_list: [1],
+                        activities_administration_list: [1, 2, 3],
+                        activities_mantinance_list: [],
+                        activities_homecares_list: [1, 2],
+                        activities_technology_list: [1, 2, 3],
+                        activities_event_list: [1, 2, 3],
+                        activities_hospitality_list: [1],
+                        activities_support_list: [1, 2, 3],
+                        activities_financial_list: [1],
+                        activities_other_list: [1, 2],
+                        activities_sport_list: [],
+                        activities_group_list: [1, 2],
+                        deleted_at: null,
                         created_at: '2024-01-05T16:00:00Z',
                         updated_at: '2024-01-05T16:00:00Z'
                     }
@@ -216,18 +256,34 @@ export default function AdminVolunteersPage() {
         try {
             const csvContent = [
                 // CSV Header
-                ['Name', 'Email', 'Phone', 'City', 'Age', 'Hours', 'Status', 'Skills', 'Languages'].join(','),
+                [
+                    'Name', 'Title', 'Email', 'Phone', 'City', 'Post Code', 'Age', 'Gender', 'Hours', 
+                    'Status', 'Skills', 'Languages', 'Qualifications', 'Work Experience', 
+                    'Health Info', 'Transport Options', 'Work Types', 'Available Days', 
+                    'Date Added', 'Review Date'
+                ].join(','),
                 // CSV Data
                 ...filteredVolunteers.map(volunteer => [
                     `"${volunteer.first_name || ''} ${volunteer.last_name || ''}"`,
+                    `"${volunteer.title || ''}"`,
                     `"${volunteer.email || ''}"`,
                     `"${volunteer.phone || ''}"`,
                     `"${volunteer.city || ''}"`,
+                    `"${volunteer.post_code || ''}"`,
                     volunteer.year_of_birth ? calculateAge(volunteer.year_of_birth) : '',
+                    volunteer.gender === 1 ? 'Male' : volunteer.gender === 2 ? 'Female' : volunteer.gender === 3 ? 'Other' : 'Not specified',
                     `"${volunteer.hours || ''}"`,
                     `"${getStatusText(volunteer.status)}"`,
                     `"${volunteer.skills || ''}"`,
-                    `"${volunteer.languages || ''}"`
+                    `"${volunteer.languages || ''}"`,
+                    `"${volunteer.qualification || ''}"`,
+                    `"${volunteer.work_experience || ''}"`,
+                    `"${volunteer.health || ''}"`,
+                    volunteer.transport_list ? `${volunteer.transport_list.length} options` : '0 options',
+                    volunteer.type_of_work_list ? `${volunteer.type_of_work_list.length} types` : '0 types',
+                    volunteer.days_list ? `${volunteer.days_list.length} days` : '0 days',
+                    volunteer.date_added ? new Date(volunteer.date_added).toLocaleDateString() : '',
+                    volunteer.review_date ? new Date(volunteer.review_date).toLocaleDateString() : ''
                 ].join(','))
             ].join('\n');
 
@@ -395,7 +451,8 @@ export default function AdminVolunteersPage() {
                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Volunteer</th>
                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hours</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Availability</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Skills</th>
                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                                     </tr>
@@ -406,47 +463,112 @@ export default function AdminVolunteersPage() {
                                             <tr key={volunteer.id} className="hover:bg-gray-50 transition-colors">
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <div className="flex items-center">
-                                                        <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                                                            <IconUser size={16} className="text-blue-600" />
+                                                        <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                                            <IconUser size={18} className="text-blue-600" />
                                                         </div>
                                                         <div>
                                                             <div className="text-sm font-medium text-gray-900">
+                                                                {volunteer.title && `${volunteer.title} `}
                                                                 {volunteer.first_name} {volunteer.last_name}
                                                             </div>
-                                                            {volunteer.title && (
+                                                            {volunteer.year_of_birth && (
                                                                 <div className="text-sm text-gray-500">
-                                                                    {volunteer.title}
+                                                                    Age: {calculateAge(volunteer.year_of_birth)}
+                                                                </div>
+                                                            )}
+                                                            {volunteer.gender && (
+                                                                <div className="text-xs text-gray-400">
+                                                                    {volunteer.gender === 1 ? 'Male' : volunteer.gender === 2 ? 'Female' : 'Other'}
                                                                 </div>
                                                             )}
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className="text-sm text-gray-900">{volunteer.email || 'N/A'}</div>
-                                                    <div className="text-sm text-gray-500">{volunteer.phone || 'N/A'}</div>
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className="text-sm text-gray-900">{volunteer.city || 'N/A'}</div>
-                                                    <div className="text-sm text-gray-500">
-                                                        {volunteer.year_of_birth ? `Age: ${calculateAge(volunteer.year_of_birth)}` : 'Age: N/A'}
+                                                    <div className="flex items-start space-x-2">
+                                                        <IconMail size={14} className="text-gray-400 mt-0.5 flex-shrink-0" />
+                                                        <div>
+                                                            <div className="text-sm text-gray-900">{volunteer.email || 'N/A'}</div>
+                                                            <div className="flex items-center space-x-1 mt-1">
+                                                                <IconPhone size={14} className="text-gray-400" />
+                                                                <span className="text-sm text-gray-500">{volunteer.phone || 'N/A'}</span>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className="text-sm text-gray-900">{volunteer.hours || 'N/A'}</div>
+                                                    <div className="flex items-start space-x-2">
+                                                        <IconMapPin size={14} className="text-gray-400 mt-0.5 flex-shrink-0" />
+                                                        <div>
+                                                            <div className="text-sm text-gray-900">{volunteer.city || 'N/A'}</div>
+                                                            {volunteer.post_code && (
+                                                                <div className="text-sm text-gray-500">{volunteer.post_code}</div>
+                                                            )}
+                                                        </div>
+                                                    </div>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                    <span className={clsx(
-                                                        "inline-flex px-2 py-1 text-xs font-semibold rounded-full",
-                                                        getStatusColor(volunteer.status)
-                                                    )}>
-                                                        {getStatusText(volunteer.status)}
-                                                    </span>
+                                                    <div>
+                                                        <div className="text-sm text-gray-900">{volunteer.hours || 'N/A'}</div>
+                                                        <div className="text-sm text-gray-500">
+                                                            {volunteer.days_list && volunteer.days_list.length > 0 
+                                                                ? `${volunteer.days_list.length} days` 
+                                                                : 'Days: N/A'}
+                                                        </div>
+                                                        <div className="text-sm text-gray-500">
+                                                            {volunteer.transport_list && volunteer.transport_list.length > 0 
+                                                                ? 'Transport: Yes' 
+                                                                : 'Transport: N/A'}
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <div className="max-w-xs">
+                                                        {volunteer.skills && (
+                                                            <div className="text-sm text-gray-900 truncate mb-1" title={volunteer.skills}>
+                                                                {volunteer.skills.length > 50 ? `${volunteer.skills.substring(0, 50)}...` : volunteer.skills}
+                                                            </div>
+                                                        )}
+                                                        <div className="flex flex-wrap gap-1">
+                                                            {volunteer.type_of_work_list && volunteer.type_of_work_list.length > 0 && (
+                                                                <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs">
+                                                                    {volunteer.type_of_work_list.length} work types
+                                                                </span>
+                                                            )}
+                                                            {volunteer.activities_list && volunteer.activities_list.length > 0 && (
+                                                                <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs">
+                                                                    {volunteer.activities_list.length} activities
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                        {volunteer.languages && (
+                                                            <div className="text-xs text-gray-500 mt-1">
+                                                                Languages: {volunteer.languages}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    <div className="flex flex-col space-y-2">
+                                                        <span className={clsx(
+                                                            "inline-flex px-2 py-1 text-xs font-semibold rounded-full",
+                                                            getStatusColor(volunteer.status)
+                                                        )}>
+                                                            {getStatusText(volunteer.status)}
+                                                        </span>
+                                                        {volunteer.review_date && (
+                                                            <div className="text-xs text-gray-500">
+                                                                Review: {new Date(volunteer.review_date).toLocaleDateString()}
+                                                            </div>
+                                                        )}
+                                                    </div>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                     <div className="flex items-center space-x-2">
                                                         <button
                                                             onClick={() => handleViewVolunteer(volunteer)}
                                                             className="inline-flex items-center gap-1 px-3 py-1 bg-blue-50 text-blue-700 rounded-md hover:bg-blue-100 transition-colors"
+                                                            title="View volunteer details"
                                                         >
                                                             <IconEye size={16} />
                                                             View
@@ -454,6 +576,7 @@ export default function AdminVolunteersPage() {
                                                         <Link
                                                             to={`/admin/edit-volunteer/${volunteer.id}`}
                                                             className="inline-flex items-center gap-1 px-3 py-1 bg-gray-50 text-gray-700 rounded-md hover:bg-gray-100 transition-colors"
+                                                            title="Edit volunteer"
                                                         >
                                                             <IconEdit size={16} />
                                                             Edit
@@ -464,7 +587,7 @@ export default function AdminVolunteersPage() {
                                         ))
                                     ) : (
                                         <tr>
-                                            <td colSpan="6" className="px-6 py-12 text-center text-gray-500">
+                                            <td colSpan="7" className="px-6 py-12 text-center text-gray-500">
                                                 <div className="flex flex-col items-center">
                                                     <IconUser size={48} className="text-gray-300 mb-4" />
                                                     <p className="text-lg font-medium">No volunteers found</p>
@@ -497,7 +620,7 @@ export default function AdminVolunteersPage() {
                         isOpen={isViewPopupOpen}
                         onClose={handleClosePopup}
                         title="Volunteer Details"
-                        maxWidth="max-w-6xl"
+                        maxWidth="max-w-7xl"
                     >
                         <VolunteerView volunteer={selectedVolunteer} />
                     </Popup>

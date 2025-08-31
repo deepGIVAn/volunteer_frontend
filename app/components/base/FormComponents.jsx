@@ -11,7 +11,7 @@ export const FormField = ({ label, name, type = 'text', required = false, placeh
         </label>
         <div className="relative">
             {Icon && (
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-3 pt-3 flex items-start pointer-events-none">
                     <Icon size={18} className="text-gray-400" />
                 </div>
             )}
@@ -156,7 +156,7 @@ export const MultiSelectField = ({ label, name, options, required = false, formD
                                 className="h-4 w-4 text-[#C7102F] focus:ring-[#C7102F] border-gray-300 rounded"
                             />
                             <label htmlFor={`${name}_${option.seq}`} className="text-sm text-gray-700">
-                                {option.region || option.service || option.name || 'Unknown'}
+                                {option.region || option.service || option.name || option.group_activity || option.sport_activity || option.other_activity || option.financial_activity || option.support_activity || option.hospitality_activity || option.event_activity || option.technology_activity || option.home_cares_activity || option.mantinance_activity || option.administration_activity || option.driving_activity || option.time || option.day || 'Unknown'}
                             </label>
                         </div>
                     );

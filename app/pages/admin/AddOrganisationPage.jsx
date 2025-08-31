@@ -126,7 +126,7 @@ export default function AddOrganisationPage(props) {
 
             const data = await response.json();
             console.log('Organisation added:', data);
-            
+
             // Reset form and navigate back to organisations list
             resetForm();
             navigate('/admin/organisations');
