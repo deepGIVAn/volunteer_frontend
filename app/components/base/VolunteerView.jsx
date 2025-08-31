@@ -471,7 +471,7 @@ export default function VolunteerView({ volunteer }) {
                             <p className="text-gray-900">{formatDate(volunteer.review_date)}</p>
                         </div>
                     )}
-                    {volunteer.created_at && (
+                    {/* {volunteer.created_at && (
                         <div>
                             <span className="font-medium text-gray-600">Created:</span>
                             <p className="text-gray-900">{formatDate(volunteer.created_at)}</p>
@@ -482,7 +482,7 @@ export default function VolunteerView({ volunteer }) {
                             <span className="font-medium text-gray-600">Last Updated:</span>
                             <p className="text-gray-900">{formatDate(volunteer.updated_at)}</p>
                         </div>
-                    )}
+                    )} */}
                 </div>
             </div>
         </div>

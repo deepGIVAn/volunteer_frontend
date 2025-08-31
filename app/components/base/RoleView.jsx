@@ -484,7 +484,7 @@ export default function RoleView({ role }) {
                             <p className="text-gray-900">{formatDate(role.date_added)}</p>
                         </div>
                     )}
-                    {role.created_at && (
+                    {/* {role.created_at && (
                         <div>
                             <span className="font-medium text-gray-600">Created:</span>
                             <p className="text-gray-900">{formatDate(role.created_at)}</p>
@@ -495,7 +495,7 @@ export default function RoleView({ role }) {
                             <span className="font-medium text-gray-600">Last Updated:</span>
                             <p className="text-gray-900">{formatDate(role.updated_at)}</p>
                         </div>
-                    )}
+                    )} */}
                 </div>
             </div>
         </div>

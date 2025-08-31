@@ -254,23 +254,26 @@ export default function OrganisationView({ organisation }) {
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center space-x-3">
                                         <IconPaperclip size={20} className="text-[#C7102F]" />
-                                        <div>
-                                            <button
-                                                onClick={() => {
-                                                    console.log(organisation.attachment);
-                                                    // Preview functionality
-                                                    if (organisation.attachment) {
-                                                        window.open(organisation.attachment, '_blank');
-                                                    }
-                                                }}
-                                                className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-md hover:bg-blue-100 transition-colors"
-                                                title="Preview attachment"
-                                            >
-                                                <IconEye size={14} className="mr-1" />
-                                                Preview
-                                            </button>
-                                        </div>
+                                        <span className="text-sm text-gray-700">
+                                          {organisation.attachment && organisation.attachment.length > 20
+                                            ? organisation.attachment.slice(0, 52) + '...'
+                                            : organisation.attachment}
+                                        </span>
                                     </div>
+                                        <button
+                                            onClick={() => {
+                                                console.log(organisation.attachment);
+                                                // Preview functionality
+                                                if (organisation.attachment) {
+                                                    window.open(organisation.attachment, '_blank');
+                                                }
+                                            }}
+                                            className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-md hover:bg-blue-100 transition-colors"
+                                            title="Preview attachment"
+                                        >
+                                            <IconEye size={14} className="mr-1" />
+                                            Preview
+                                        </button>
                                     <div className="flex items-center space-x-2">
                                         {/* <button
                                             onClick={() => {
