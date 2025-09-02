@@ -11,16 +11,18 @@ import {
 	IconClock,
 	IconFileText,
 	IconDeviceFloppy,
-	IconTrash
+	IconTrash,
+	IconMessage
 } from '@tabler/icons-react';
 import { 
-    FormField, 
-    CheckboxField, 
-    FileField, 
-    DateField, 
-    MultiSelectField, 
-    SelectField 
+	FormField, 
+	CheckboxField, 
+	FileField, 
+	DateField, 
+	MultiSelectField, 
+	SelectField 
 } from '../../components/base/FormComponents';
+import { formatDateTime } from '../../utiils/dateUtils';
 
 export default function EditOrganisationPage({organisation, regions, types}) {
 	const { id } = useParams();
@@ -71,7 +73,9 @@ export default function EditOrganisationPage({organisation, regions, types}) {
 		status: convertStatusToNumber(organisation?.status),
 		date_added: formatDateForInput(organisation?.added_date || organisation?.date_added),
 		date_deactivated: formatDateForInput(organisation?.deactivated_date || organisation?.date_deactivated),
-		attachment: null // Reset to null as we can't pre-populate file inputs
+		attachment: null, // Reset to null as we can't pre-populate file inputs
+		comments: organisation?.comments || [],
+		comment: ''
 	});
 
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -106,7 +110,9 @@ export default function EditOrganisationPage({organisation, regions, types}) {
 				status: convertStatusToNumber(organisation?.status),
 				date_added: formatDateForInput(organisation?.added_date || organisation?.date_added),
 				date_deactivated: formatDateForInput(organisation?.deactivated_date || organisation?.date_deactivated),
-				attachment: null
+				attachment: null,
+				comments: organisation?.comments || [],
+				comment: ''
 			});
 			setCurrentAttachmentUrl(organisation?.attachment || null);
 		}
@@ -521,6 +527,47 @@ export default function EditOrganisationPage({organisation, regions, types}) {
 							handleInputChange={handleInputChange}
 						/>
 					</div>
+				</div>
+
+				{/* Comments Section */}
+				<div className="bg-white rounded-lg border border-gray-200 p-6">
+					<h2 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
+						<IconFileText size={20} className="mr-2 text-[#C7102F]" />
+						Comments
+					</h2>
+					
+					{/* Previous Comments History */}
+					{formData.comments && formData.comments.length > 0 && (
+						<div className="mb-6">
+							<h3 className="text-sm font-medium text-gray-700 mb-3 flex items-center">
+								<IconMessage size={16} className="mr-2" />
+								Previous Comments
+							</h3>
+							<div className="space-y-3 max-h-64 overflow-y-auto">
+								{formData.comments.map((comment) => (
+									<div key={comment.id} className="bg-gray-50 rounded-lg py-2 px-3 border border-gray-100 flex flex-wrap gap-3 items-end">
+										<p className="text-gray-800 text-sm">{comment.comment}</p>
+										<div className="text-xs text-gray-500">
+											By <span className="font-medium">{comment.admin}</span> on {formatDateTime(comment.created_at)}
+										</div>
+									</div>
+								))}
+							</div>
+							<div className="border-t border-gray-200 mt-4 pt-4">
+								<h4 className="text-sm font-medium text-gray-700 mb-3">Add New Comment</h4>
+							</div>
+						</div>
+					)}
+					
+					<FormField
+						label={formData.comments.length > 0 ? "" : "Comment"}
+						name="comment"
+						type="textarea"
+						placeholder="Add any additional comments or notes about this organisation..."
+						rows={4}
+						formData={formData}
+						handleInputChange={handleInputChange}
+					/>
 				</div>
 
 				{/* Submit Button */}

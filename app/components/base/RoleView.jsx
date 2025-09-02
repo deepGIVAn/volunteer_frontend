@@ -22,9 +22,10 @@ import {
     IconAccessible,
     IconStairs,
     IconHome,
-    IconClockHour4
+    IconClockHour4,
+    IconMessage
 } from '@tabler/icons-react';
-import { formatDate } from '../../utiils/dateUtils';
+import { formatDate, formatDateTime } from '../../utiils/dateUtils';
 
 export default function RoleView({ role }) {
     if (!role) return null;
@@ -463,6 +464,26 @@ export default function RoleView({ role }) {
                                 Preview
                             </button>
                         </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Comments Section */}
+            {role.comments && role.comments.length > 0 && (
+                <div className="mt-8 pt-6 border-t border-gray-200">
+                    <h4 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
+                        <IconMessage size={20} className="mr-2 text-[#C7102F]" />
+                        Comments History
+                    </h4>
+                    <div className="space-y-3 max-h-80 overflow-y-auto">
+                        {role.comments.map((comment) => (
+                            <div key={comment.id} className="bg-gray-50 rounded-lg py-2 px-3 border border-gray-100 flex flex-wrap gap-3 items-end">
+                                <p className="text-gray-800 text-sm">{comment.comment}</p>
+                                <div className="text-xs text-gray-500">
+                                    By <span className="font-medium">{comment.admin || comment.created_by}</span> on {formatDateTime(comment.created_at)}
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             )}

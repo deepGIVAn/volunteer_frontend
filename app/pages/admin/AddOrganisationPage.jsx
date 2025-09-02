@@ -52,7 +52,8 @@ export default function AddOrganisationPage(props) {
         status: 4, // Draft
         date_added: '',
         date_deactivated: '',
-        attachment: null
+        attachment: null,
+        comment: ''
     };
     
     const [formData, setFormData] = useState(initialFormData);
@@ -427,6 +428,23 @@ export default function AddOrganisationPage(props) {
                             handleInputChange={handleInputChange}
                         />
                     </div>
+                </div>
+
+                {/* Comments Section */}
+                <div className="bg-white rounded-lg border border-gray-200 p-6">
+                    <h2 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
+                        <IconFileText size={20} className="mr-2 text-[#C7102F]" />
+                        Comments
+                    </h2>
+                    <FormField
+                        label="Comment"
+                        name="comment"
+                        type="textarea"
+                        placeholder="Add any additional comments or notes about this organisation..."
+                        rows={4}
+                        formData={formData}
+                        handleInputChange={handleInputChange}
+                    />
                 </div>
 
                 {/* Submit Button */}

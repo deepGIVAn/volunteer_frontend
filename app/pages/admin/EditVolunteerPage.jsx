@@ -13,7 +13,8 @@ import {
 	IconStar,
 	IconHeart,
 	IconSchool,
-	IconTrash
+	IconTrash,
+	IconMessage
 } from '@tabler/icons-react';
 import {
 	FormField,
@@ -21,6 +22,7 @@ import {
 	DateField,
 	SelectField
 } from '../../components/base/FormComponents';
+import { formatDateTime } from '../../utiils/dateUtils';
 
 export default function EditVolunteerPage({
 	type_of_work_list,
@@ -112,6 +114,8 @@ export default function EditVolunteerPage({
 		activities_other_list: convertToNumbers(volunteer?.activities_other_list || []),
 		activities_sport_list: convertToNumbers(volunteer?.activities_sport_list || []),
 		activities_group_list: convertToNumbers(volunteer?.activities_group_list || []),
+		comments: volunteer?.comments || [],
+		comment: ''
 	});
 
 	// Update form data when volunteer prop changes
@@ -161,6 +165,8 @@ export default function EditVolunteerPage({
 				activities_other_list: convertToNumbers(volunteer?.activities_other_list || []),
 				activities_sport_list: convertToNumbers(volunteer?.activities_sport_list || []),
 				activities_group_list: convertToNumbers(volunteer?.activities_group_list || []),
+				comments: volunteer?.comments || [],
+				comment: ''
 			});
 		}
 	}, [volunteer]);
@@ -329,7 +335,7 @@ export default function EditVolunteerPage({
 						<span>Delete</span>
 					</button>
 				</div>
-				<p className="text-gray-600">Update the volunteer's details below.</p>
+				<p className="text-gray-600">Update the volunteer&apos;s details below.</p>
 			</div>
 
 			<form onSubmit={handleSubmit} className="space-y-8">
@@ -450,6 +456,47 @@ export default function EditVolunteerPage({
 						<FormField label="Other Information" name="other_information" type="textarea" placeholder="Any other relevant information" formData={formData} handleInputChange={handleInputChange} icon={IconFileText} rows={3} />
 						<FormField label="Notes" name="notes" type="textarea" placeholder="Internal notes about the volunteer" formData={formData} handleInputChange={handleInputChange} icon={IconFileText} rows={3} />
 					</div>
+				</div>
+
+				{/* Comments Section */}
+				<div className="bg-white rounded-lg border border-gray-200 p-6">
+					<h2 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
+						<IconFileText size={20} className="mr-2 text-[#C7102F]" />
+						Comments
+					</h2>
+					
+					{/* Previous Comments History */}
+					{formData.comments && formData.comments.length > 0 && (
+						<div className="mb-6">
+							<h3 className="text-sm font-medium text-gray-700 mb-3 flex items-center">
+								<IconMessage size={16} className="mr-2" />
+								Previous Comments
+							</h3>
+							<div className="space-y-3 max-h-64 overflow-y-auto">
+								{formData.comments.map((comment) => (
+									<div key={comment.id} className="bg-gray-50 rounded-lg py-2 px-3 border border-gray-100 flex flex-wrap gap-3 items-end">
+										<p className="text-gray-800 text-sm">{comment.comment}</p>
+										<div className="text-xs text-gray-500">
+											By <span className="font-medium">{comment.admin}</span> on {formatDateTime(comment.created_at)}
+										</div>
+									</div>
+								))}
+							</div>
+							<div className="border-t border-gray-200 mt-4 pt-4">
+								<h4 className="text-sm font-medium text-gray-700 mb-3">Add New Comment</h4>
+							</div>
+						</div>
+					)}
+					
+					<FormField
+						label={formData.comments.length > 0 ? "" : "Comment"}
+						name="comment"
+						type="textarea"
+						placeholder="Add any additional comments or notes about this organisation..."
+						rows={4}
+						formData={formData}
+						handleInputChange={handleInputChange}
+					/>
 				</div>
 
 				{/* Submit Button */}

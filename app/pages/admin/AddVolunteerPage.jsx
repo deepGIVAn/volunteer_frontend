@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link, useNavigate, useRouteLoaderData } from '@remix-run/react';
 import {
@@ -92,6 +91,7 @@ export default function AddVolunteerPage({
 		activities_other_list: [],
 		activities_sport_list: [],
 		activities_group_list: [],
+		comment: ''
 	});
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -335,6 +335,23 @@ export default function AddVolunteerPage({
 						<FormField label="Notes" name="notes" type="textarea" placeholder="Internal notes about the volunteer" formData={formData} handleInputChange={handleInputChange} icon={IconFileText} rows={3} />
 						{/* Attachment field removed as per request */}
 					</div>
+				</div>
+
+				{/* Comments Section */}
+				<div className="bg-white rounded-lg border border-gray-200 p-6">
+					<h2 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
+						<IconFileText size={20} className="mr-2 text-[#C7102F]" />
+						Comments
+					</h2>
+					<FormField
+						label="Comment"
+						name="comment"
+						type="textarea"
+						placeholder="Add any additional comments or notes about this volunteer..."
+						rows={4}
+						formData={formData}
+						handleInputChange={handleInputChange}
+					/>
 				</div>
 
 				{/* Submit Button */}
