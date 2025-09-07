@@ -144,7 +144,7 @@ export default function AdminLayout() {
 									<span className="mr-2 flex items-center"><IconUserCircle size={20} /></span>
 									<div>
 										{user.name}
-										<div className="text-xs font-light block">{user.email}</div>
+										<div className="text-xs font-normal block">{user.email}</div>
 									</div>
 								</div>
 							)}
