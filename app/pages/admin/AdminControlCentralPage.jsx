@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Popup from '../../components/base/Popup';
 import { FormField, CheckboxField } from '../../components/base/FormComponents';
 import { IconEdit, IconTrash, IconPlus, IconUser, IconBuilding, IconCalendar } from '@tabler/icons-react';
+import { useRouteLoaderData } from '@remix-run/react';
 
 const initialStaff = [
-  { id: 1, name: 'Alice Johnson', email: 'alice@email.com', password: '********', status: true },
-  { id: 2, name: 'Bob Smith', email: 'bob@email.com', password: '********', status: false },
+  // { id: 1, name: 'Alice Johnson', email: 'alice@email.com', password: '********', status: true },
+  // { id: 2, name: 'Bob Smith', email: 'bob@email.com', password: '********', status: false },
 ];
 
 export default function AdminControlCentralPage() {
+  const { user } = useRouteLoaderData("routes/admin");
   const [staffList, setStaffList] = useState(initialStaff);
   const [popupOpen, setPopupOpen] = useState(false);
   const [editId, setEditId] = useState(null);
@@ -47,7 +49,7 @@ export default function AdminControlCentralPage() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setFormError('');
     if (formData.password !== formData.confirmPassword) {
@@ -55,23 +57,113 @@ export default function AdminControlCentralPage() {
       return;
     }
     if (editId) {
-      setStaffList((prev) => prev.map((s) => (
-        s.id === editId ? { ...s, ...formData, password: formData.password || s.password || '' } : s
-      )));
+      // POST request to update staff
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/admin/update-staff/${editId}/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': user?.token ? `Bearer ${user.token}` : ''
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+            status: formData.status
+          })
+        });
+        if (!response.ok) {
+          const errorData = await response.json();
+          setFormError(errorData.message || 'Failed to update staff.');
+          return;
+        }
+        const updatedStaff = await response.json();
+        setStaffList((prev) => prev.map((s) => (
+          s.id === editId ? { ...s, ...updatedStaff } : s
+        )));
+        setPopupOpen(false);
+      } catch (err) {
+        setFormError('Network error. Please try again.');
+      }
     } else {
-      setStaffList((prev) => [
-        ...prev,
-        { ...formData, password: formData.password || '', id: Date.now() },
-      ]);
+      // POST request for creating staff
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/admin/create-staff/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': user?.token ? `Bearer ${user.token}` : ''
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+            status: formData.status
+          })
+        });
+        if (!response.ok) {
+          const errorData = await response.json();
+          setFormError(errorData.message || 'Failed to create staff.');
+          return;
+        }
+        const newStaff = await response.json();
+        // console.log('Created Staff:', newStaff);
+        setStaffList((prev) => [
+          ...prev,
+          { ...newStaff, id: newStaff.id || Date.now() },
+        ]);
+        setPopupOpen(false);
+      } catch (err) {
+        setFormError('Network error. Please try again.');
+      }
+      
+      // setStaffList((prev) => [
+      //   ...prev,
+      //   { ...formData, password: formData.password || '', id: Date.now() },
+      // ]);
     }
-    setPopupOpen(false);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to remove this staff member?')) {
-      setStaffList((prev) => prev.filter((s) => s.id !== id));
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/admin/delete-staff/${id}/`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': user?.token ? `Bearer ${user.token}` : ''
+          }
+        });
+        if (!response.ok) {
+          // Optionally handle error
+          return;
+        }
+        setStaffList((prev) => prev.filter((s) => s.id !== id));
+      } catch (err) {
+        // Optionally handle error
+      }
     }
   };
+
+  // Fetch all staff on first render
+  useEffect(() => {
+    async function fetchStaff() {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/admin/get-all-staff/`, {
+          method: 'GET',
+          headers: {
+            'Authorization': user?.token ? `Bearer ${user.token}` : ''
+          }
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setStaffList(Array.isArray(data) ? data : []);
+        }
+      } catch (err) {
+        // Optionally handle error
+      }
+    }
+    fetchStaff();
+  }, []);
 
   return (
     <div className="text-sm md:text-base">
@@ -121,7 +213,7 @@ export default function AdminControlCentralPage() {
       </div>
 
       {/* Staff Table */}
-  <div className="bg-white rounded-lg border border-gray-200 overflow-hidden text-[15px] md:text-base">
+      <div className="bg-white rounded-lg border border-gray-200 overflow-hidden text-[15px] md:text-base">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50 border-b border-gray-200">

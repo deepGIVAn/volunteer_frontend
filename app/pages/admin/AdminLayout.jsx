@@ -1,4 +1,4 @@
-import { Outlet } from "@remix-run/react";
+import { Outlet, useRouteLoaderData } from "@remix-run/react";
 import { Form, NavLink } from "@remix-run/react";
 import { 
 	IconChevronLeft, 
@@ -8,13 +8,14 @@ import {
 	IconUsers, 
 	IconTrash, 
 	IconSettings,
-	IconBriefcase
+	IconBriefcase,
+	IconUserCircle
 } from "@tabler/icons-react";
 import clsx from "clsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RoutesPath } from "../../utiils/Path";
 
-const sidebarItems = [
+const sidebarItemsPre = [
 	{ label: 'Dashboard', icon: <IconHome size={18} />, type: 'link', to: RoutesPath.admin },
 	{ label: 'Organisations', icon: <IconBuilding size={18} />, type: 'link', to: RoutesPath.adminOrganisations },
 	{ label: 'Volunteers', icon: <IconUsers size={18} />, type: 'link', to: RoutesPath.adminVolunteers },
@@ -24,7 +25,21 @@ const sidebarItems = [
 ]
 
 export default function AdminLayout() {
-	// const [sidebarItems, setSidebarItems] = useState([]);
+	const { user } = useRouteLoaderData("routes/admin");
+	const [sidebarItems, setSidebarItems] = useState(sidebarItemsPre);
+
+	// Only update sidebarItems when user.role changes
+	useEffect(() => {
+		if (user?.role === 2) {
+			setSidebarItems(
+				sidebarItemsPre.filter(
+					item => item.label !== 'Control Center' && item.label !== 'Recycle Bin'
+				)
+			);
+		} else {
+			setSidebarItems(sidebarItemsPre);
+		}
+	}, [user?.role]);
 
 	const [sidebarOpen1, setSidebarOpen] = useState(true);
 	const [hoverSidebar, setHoverSidebar] = useState(false);
@@ -123,16 +138,26 @@ export default function AdminLayout() {
 						onMouseLeave={() => setHoverSidebar(false)}
 					>
 						<div className="flex flex-col gap-2">
-						<Form method="post" action="/logout" className="w-full">
-							<button
-								className={`flex w-full items-center px-4 py-2 rounded-lg transition-colors ${!sidebarOpen ? 'justify-center px-0' : ''} text-gray-700 hover:bg-red-50`}
-							>
-								<span className={`${!sidebarOpen ? '' : 'mr-2'}`}>
-									<IconLogout2 size={18} className="text-red-500"  />
-								</span>
-								<span className={`transition-all text-xs font-semibold text-red-500 duration-200 ${!sidebarOpen ? 'opacity-0 w-0 absolute' : 'opacity-100 w-auto'}`}>Logout</span>
-							</button>
-						</Form>
+							{/* Show logged-in user name */}
+							{user?.name && (
+								<div className={`flex items-center justify-center py-2 text-xs font-semibold text-gray-600 bg-gray-100 rounded-md ${!sidebarOpen ? 'hidden' : ''}`}>
+									<span className="mr-2 flex items-center"><IconUserCircle size={20} /></span>
+									<div>
+										{user.name}
+										<div className="text-xs font-light block">{user.email}</div>
+									</div>
+								</div>
+							)}
+							<Form method="post" action="/logout" className="w-full">
+								<button
+									className={`flex w-full items-center px-4 py-2 rounded-lg transition-colors ${!sidebarOpen ? 'justify-center px-0' : ''} text-gray-700 hover:bg-red-50`}
+								>
+									<span className={`${!sidebarOpen ? '' : 'mr-2'}`}>
+										<IconLogout2 size={18} className="text-red-500"  />
+									</span>
+									<span className={`transition-all text-xs font-semibold text-red-500 duration-200 ${!sidebarOpen ? 'opacity-0 w-0 absolute' : 'opacity-100 w-auto'}`}>Logout</span>
+								</button>
+							</Form>
 						</div>
 					</div>
 				</div>
